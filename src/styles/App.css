@@ -1,0 +1,392 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#root {
+  color-scheme: light;
+
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  width: 300px;
+  margin: 0 auto;
+}
+
+.auth-input {
+  width: 300px;
+  height: 42px;
+  margin-bottom: 20px;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  color: #6E6E6E;
+  font-size: 14px;
+  font-family: Inter, sans-serif;
+  font-weight: lighter;
+}
+
+.auth-input:focus {
+  border: 1px solid #67C96C;
+  box-shadow: 0 0 2px rgba(103, 201, 108, 0.4);
+  outline: none;
+}
+
+.primary-auth-button {
+  width: 300px;
+  height: 42px;
+  background-color: #67C96C;
+  border: none;
+  color: white;
+  font-size: 14px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.primary-auth-button:hover {
+  background-color: #82d182;
+}
+
+.secondary-auth-button {
+  width: 300px;
+  height: 42px;
+  background-color: #F4F4F4;
+  border: none;
+  color: #393C41;
+  font-size: 14px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.secondary-auth-button:hover {
+  background-color: #EDEDED;
+}
+
+.need-help-link {
+  text-align: right;
+  color: #67C96C;
+  margin-bottom: 30px;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  margin-top: -5px;
+}
+
+.or-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 25px;
+  margin-top: 25px;
+}
+
+.or-container hr {
+  flex: 1;
+  border: none;
+  height: 1px;
+  background-color: #C6C6C6;
+}
+
+.or-text {
+  font-size: 12px;
+  font-weight: 500;
+  font-family: Inter, sans-serif;
+  color: #6E6E6E;
+}
+
+.auth-logo {
+  width: 180px;
+  height: 50px;
+}
+
+.logo-container {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.auth-checkbox-container {
+  display: flex;
+  align-items: start;
+  gap: 10px; /* Відступ між чекбоксом і текстом */
+  font-size: 12px;
+  font-family: Inter, sans-serif;
+  color: #6E6E6E;
+  font-weight: 300;
+  margin-bottom: 35px;
+}
+
+.auth-checkbox-container a {
+  color: #67C96C;
+  text-decoration: none;
+}
+
+.auth-checkbox-container {
+  display: flex;
+  align-items: start;
+  gap: 8px; /* Відступ між чекбоксом і текстом */
+  font-size: 12px;
+  font-family: Inter, sans-serif;
+  color: #6E6E6E;
+  font-weight: 300;
+  margin-bottom: 35px;
+}
+
+.auth-checkbox-container a {
+  color: #67C96C;
+  text-decoration: none;
+}
+
+.auth-checkbox-container a:hover {
+  text-decoration: underline;
+}
+.auth-checkbox-container {
+  display: flex;
+  align-items: start;
+  gap: 8px;
+  font-size: 12px;
+  font-family: Inter, sans-serif;
+  color: #6E6E6E;
+  font-weight: 300;
+  margin-bottom: 35px;
+}
+
+.auth-checkbox-container a {
+  color: #67C96C;
+  text-decoration: none;
+}
+
+.auth-checkbox-container a:hover {
+  text-decoration: underline;
+}
+
+.auth-checkbox-container {
+  display: flex;
+  align-items: start;
+  gap: 8px;
+  font-size: 12.5px;
+  font-family: Inter, sans-serif;
+  color: #6E6E6E;
+  font-weight: 300;
+  margin-bottom: 35px;
+}
+
+.auth-checkbox-container a {
+  color: #67C96C;
+  text-decoration: underline;
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 25px;
+  margin-left: 50px;
+  width: 280px;
+  height: 625px;
+  border-radius: 5px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.profile-photo {
+  height: 168px;
+  width: 168px;
+  background-color: #393C41;
+  border-radius: 50%;
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+
+.profile-info {
+  text-align: center;
+}
+
+.profile-description {
+  width: 220px;
+  height: 188px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.profile-info h3 {
+  color: #393C41;
+  font-family: Inter, sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.profile-info h4 {
+  color: #848484;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 30px;
+}
+
+.profile-description p {
+  color: #9A9A9A;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.primary-profile-info-button {
+  width: 225px;
+  height: 40px;
+  background-color: #67C96C;
+  border: none;
+  color: white;
+  font-size: 14px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.primary-profile-info-button:hover {
+  background-color: #82d182;
+}
+
+.secondary-profile-info-button {
+  width: 225px;
+  height: 40px;
+  background-color: #F4F4F4;
+  border: none;
+  color: #393C41;
+  font-size: 14px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.secondary-profile-info-button:hover {
+  background-color: #EDEDED;
+}
+
+.register-date-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 25px;
+  margin-left: 50px;
+  width: 280px;
+  padding-left: 22px;
+  padding-right: 22px;
+  height: 55px;
+  border-radius: 5px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.register-date-main-text {
+  color: #515151;
+  font-family: Inter, sans-serif;
+  font-weight: 550;
+  font-size: 14px;
+}
+
+.register-date-secondary-text {
+  color: #9A9A9A;
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  margin-left: auto;
+}
+
+/* Основний контейнер модального вікна */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;  /* Модальне вікно поверх всіх інших елементів */
+}
+
+/* Вміст модального вікна */
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 400px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Кнопка закриття модального вікна */
+.modal-close-button {
+  height: 42px;
+  background-color: #F4F4F4;
+  border: none;
+  color: #393C41;
+  font-size: 14px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.modal-close-button:hover {
+  background-color: #EDEDED;
+}
+
+.modal-save-button {
+  height: 42px;
+  background-color: #F4F4F4;
+  border: none;
+  color: #393C41;
+  font-size: 14px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.modal-save-button:hover {
+  background-color: #EDEDED;
+}
+
+/* Стилі для полів введення в модальному вікні */
+.modal-content input {
+  height: 42px;
+  margin-bottom: 20px;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  color: #6E6E6E;
+  font-size: 14px;
+  font-family: Inter, sans-serif;
+  font-weight: lighter;
+}
+
+.modal-content input:focus {
+  border: 1px solid #67C96C;
+  box-shadow: 0 0 2px rgba(103, 201, 108, 0.4);
+  outline: none;
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content h2 {
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  margin-bottom: 40px;
+}
+
+
+
+
+
