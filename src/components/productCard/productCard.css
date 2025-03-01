@@ -12,11 +12,16 @@
 }
 
 .product-card:hover {
-    box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.1);
+    background: #efefef;
 }
 
 .product-name {
     font-size: 18px;
+    transition: color 0.2s ease;
+}
+
+.product-card:hover .product-name {
+    color: #67C96C;
 }
 
 .product-category {
