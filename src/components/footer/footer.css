@@ -23,7 +23,7 @@ footer .logo1 {
 }
 
 .text1 {
-    margin-top: 30px;
+    margin-top: 40px;
     font-size: 14px;
     flex-direction: column;
     font-weight: 300;
@@ -37,24 +37,21 @@ footer .logo1 {
     color: #C4C4C4;
 }
 
-.text1 p {
-    cursor: pointer;
-}
-
 .text1 p:hover {
     color: #a5a5a5;
 }
 
 .main_text {
     font-weight: bold;
-    margin-bottom: 11px;
+    margin-bottom: 10px;
     color: white;
+    display: inline-block;
 }
 
 .text1 p {
     margin-bottom: 10px;
-    margin-top: 10px;
     color: #C4C4C4;
+    cursor: pointer;
 }
 
 footer button {
@@ -131,4 +128,15 @@ footer button {
 
 .footer-support-button:hover {
     background: #515151;
+}
+
+.about-container {
+    margin-top: 40px;
+    font-size: 14px;
+    font-weight: 300;
+    color: #C4C4C4;
+}
+
+.about-container p {
+    margin-bottom: 10px;
 }

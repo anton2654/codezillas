@@ -8,11 +8,11 @@
     justify-content: space-between;
     top: 0;
     padding: 0 35px;
-    transition: box-shadow 0.4s ease;
+    transition: box-shadow 0.3s ease;
 }
 
 .header-container.scrolled {
-    box-shadow: 0px 1px 0px 0px rgba(224,224,224,1);
+    box-shadow: 0px 1px 1px 0px rgba(224,224,224,1);
 }
 
 .header-nav {
