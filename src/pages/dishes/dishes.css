@@ -1,0 +1,66 @@
+.dishes-container {
+
+}
+
+.dishes-wrapper {
+    padding: 35px 35px;
+}
+
+.tabs {
+    display: flex;
+    margin-bottom: 40px;
+    border-radius: 5px;
+    width: 700px;
+    gap: 10px;
+}
+
+.tab {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    color: #71717a;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: Inter, sans-serif;
+}
+
+.tab:hover {
+    color: white;
+    background: #67c96c;
+}
+
+.tab.active {
+    background-color: #67c96c;
+    color: white;
+}
+
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 10px));
+    justify-content: space-between;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.more-button {
+    width: 230px;
+    height: 42px;
+    background-color: #67C96C;
+    border: none;
+    color: white;
+    font-size: 14px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.more-button:hover {
+    background-color: #82d182;
+}
