@@ -20,15 +20,15 @@
     cursor: pointer;
     border-radius: 4px;
     transition: background-color 0.2s ease, color 0.2s ease;
-    color: #71717a;
+    color: #59605D;
+    background: #EEF1F0;
     font-size: 14px;
     font-weight: 500;
     font-family: Inter, sans-serif;
 }
 
 .tab:hover {
-    color: white;
-    background: #67c96c;
+    background: #E6E9E8;
 }
 
 .tab.active {
