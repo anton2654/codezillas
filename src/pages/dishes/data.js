@@ -11,12 +11,12 @@ export const categories = [
 ];
 
 export const productsData = [
-    { id: 1, name: "Цезар", category: "Салати", description: "Смачний салат з куркою та сухариками", image: "https://via.placeholder.com/100" },
-    { id: 2, name: "Олів’є", category: "Салати", description: "Традиційний новорічний салат", image: "https://via.placeholder.com/100" },
-    { id: 3, name: "Грецький салат", category: "Салати", description: "Овочевий салат з фетою та оливками", image: "https://via.placeholder.com/100" },
-    { id: 4, name: "Салат з тунцем", category: "Салати", description: "Легкий салат з консервованим тунцем і овочами", image: "https://via.placeholder.com/100" },
+    { id: 1, name: "Цезар", category: "Салати", description: "Смачний салат з куркою та сухариками", image: "https://images.unian.net/photos/2019_12/thumb_files/1200_0_1577182092-7643.jpg" },
+    { id: 2, name: "Олів’є", category: "Салати", description: "Традиційний новорічний салат", image: "https://images.unian.net/photos/2018_12/1544783934-3964.jpg?0.7729090640415606" },
+    { id: 3, name: "Грецький салат", category: "Салати", description: "Овочевий салат з фетою та оливками", image: "https://images.unian.net/photos/2019_12/1577273929-5877.jpg?0.9354250072185213" },
+    { id: 4, name: "Салат з тунцем", category: "Салати", description: "Легкий салат з консервованим тунцем і овочами", image: "https://klopotenko.com/wp-content/uploads/2023/05/salat-z-rukoloyu-i-tuntsem-img-1000x600.jpg?v=1720544576" },
 
-    { id: 5, name: "Млинці з сиром", category: "Сніданки", description: "Ніжні млинці з сирною начинкою", image: "https://via.placeholder.com/100" },
+    { id: 5, name: "Млинці з сиром", category: "Сніданки", description: "Ніжні млинці з сирною начинкою", image: "https://yasensvit.ua/uploads/recipes/prev/6343f66a39e71.jpg" },
     { id: 6, name: "Омлет з овочами", category: "Сніданки", description: "Ситний омлет з болгарським перцем", image: "https://via.placeholder.com/100" },
     { id: 7, name: "Каша вівсяна", category: "Сніданки", description: "Здоровий вибір на ранок з ягодами", image: "https://via.placeholder.com/100" },
     { id: 8, name: "Сирники", category: "Сніданки", description: "Домашні сирники з сметаною", image: "https://via.placeholder.com/100" },
