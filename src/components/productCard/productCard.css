@@ -20,10 +20,6 @@
     transition: color 0.2s ease;
 }
 
-.product-card:hover {
-    color: #67C96C;
-}
-
 .product-category {
     font-size: 14px;
     color: #5D5D5D;
