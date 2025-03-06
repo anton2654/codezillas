@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./header.css";
 import { Refrigerator, Beef, CupSoda, Calculator } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import UserButton from "../userButton/userButton.jsx";
 
 const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -50,10 +51,7 @@ const Header = () => {
                 </div>
             </nav>
             <div className='header-profile'>
-                <NavLink to="/profile" className='header-nav-link'>
-                    <div className='header-profile-pic'></div>
-                </NavLink>
-
+                <UserButton />
             </div>
         </div>
     );
