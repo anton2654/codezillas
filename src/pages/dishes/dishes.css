@@ -1,7 +1,3 @@
-.dishes-container {
-
-}
-
 .dishes-wrapper {
     padding: 35px 35px;
 }
@@ -40,6 +36,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(270px, 10px));
     justify-content: space-between;
+    gap: 10px;
 }
 
 .button-container {

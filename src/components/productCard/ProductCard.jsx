@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import "./productCard.css";
 import { MoveDownRight } from 'lucide-react';
 import { X } from 'lucide-react';
+import SkeletonProductCard from "./SkeletonProductCard";
 
 const ProductCard = ({ product }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
