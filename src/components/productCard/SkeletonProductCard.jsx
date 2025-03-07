@@ -1,7 +1,7 @@
 import React from "react";
 import ContentLoader from "react-content-loader";
 
-const MyLoaSkeletonProductCardder = (props) => (
+const SkeletonProductCard = (props) => (
   <ContentLoader
     speed={2}
     width={270}

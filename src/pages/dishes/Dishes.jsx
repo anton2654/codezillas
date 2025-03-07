@@ -42,7 +42,7 @@ const Dishes = () => {
         </div>
         {/* <Categories categories={categoriesDishes} /> */}
         <div className="product-list">
-          <SkeletonProductCard />
+          {/* <SkeletonProductCard /> */}
 
           {filteredProducts.slice(0, visibleCount).map((product) => (
             <ProductCard key={product.id} product={product} />
