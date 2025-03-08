@@ -1,0 +1,132 @@
+.main-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 35px;
+}
+
+.generator-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 35px;
+    height: 550px;
+    border-radius: 15px;
+    justify-content: center;
+    font-family: "Segoe UI", sans-serif;
+    background-image: url("/bg.png");
+    margin-bottom: 40px;
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding-bottom: 25px;
+}
+
+.generator-container h1 {
+    width: 30%;
+    word-wrap: break-word;
+    line-height: 1;
+}
+
+.generator-container p {
+    width: 32%;
+    word-wrap: break-word;
+    line-height: 1;
+    color: #202020;
+}
+
+.generator-container button {
+    border: none;
+    color: #00713fde;
+    border-radius: 5px;
+    background: #00a43319;
+    width: 210px;
+    height: 45px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.generator-container button:hover {
+    background: #D3F0DD;
+}
+
+.search-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: Inter, sans-serif;
+    gap: 10px;
+    width: 100%;
+}
+.search-container h2 {
+    font-size: 18px;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    background: #f1f1f1;
+    border-radius: 10px;
+    width: 900px;
+    height: 45px;
+    padding: 10px;
+    gap: 12px;
+    color: #858585;
+    margin-bottom: 50px;
+}
+
+.search input {
+    flex: 1;
+    font-size: 14px;
+    color: #858585;
+    background: none;
+    border: none;
+}
+
+.search input:focus {
+    outline: none;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-family: Inter, sans-serif;
+    margin: 20px;
+}
+
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    width: 100%;
+}
+
+.section button {
+    background: #67C96C;
+    font-size: 14px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0 12px;
+    height: 42px;
+    width: 200px;
+    margin-left: auto;
+    display: block;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+}
+
+.section h2 {
+    font-size: 24px;
+    margin: 10px;
+}
+
+.section button:hover {
+    background: #75d57a;
+}

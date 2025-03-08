@@ -19,7 +19,7 @@ const Header = () => {
     return (
         <div className={`header-container ${isScrolled ? "scrolled" : ""}`}>
             <div className='header-logo'>
-                <NavLink to="/main" style={{textDecoration: 'none'}}>
+                <NavLink to="/" style={{textDecoration: 'none'}}>
                     <img src="/logo.png" alt="Логотип" className='header-logo-img'/>
                 </NavLink>
             </div>
