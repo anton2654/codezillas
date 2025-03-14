@@ -1,15 +1,19 @@
 from rest_framework import serializers
-from rest_framework import serializers
-from .models import User, Meal, Ingredient, MealIngredient, Fridge, ShoppingList
+from django.contrib.auth.hashers import make_password
+from .models import User, Recipe, Ingredient, RecipeIngredient, ShoppingList,UserMenu
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'  # ['id', 'email', 'name']
+        fields = ['email', 'password', 'name']
+
+    def create(self, validated_data):
+        validated_data['password'] = make_password(validated_data['password'])
+        return super().create(validated_data)
 
 class MealSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Meal
+        model = Recipe
         fields = '__all__'
 
 class IngredientSerializer(serializers.ModelSerializer):
@@ -22,7 +26,7 @@ class MealIngredientSerializer(serializers.ModelSerializer):
     ingredient = IngredientSerializer(read_only=True) 
 
     class Meta:
-        model = MealIngredient
+        model = RecipeIngredient
         fields = '__all__'
 
 class FridgeSerializer(serializers.ModelSerializer):
@@ -30,7 +34,7 @@ class FridgeSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True) 
 
     class Meta:
-        model = Fridge
+        model = UserMenu
         fields = '__all__'
 
 class ShoppingListSerializer(serializers.ModelSerializer):
