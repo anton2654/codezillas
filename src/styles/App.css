@@ -6,7 +6,7 @@
 
 #root {
   color-scheme: light;
-
+  background: #FAFEFB;
 }
 
 .auth-form {
@@ -40,7 +40,7 @@
 .primary-auth-button {
   width: 300px;
   height: 42px;
-  background-color: #67C96C;
+  background-color: #11B05E;
   border: none;
   color: white;
   font-size: 14px;
@@ -50,15 +50,15 @@
 }
 
 .primary-auth-button:hover {
-  background-color: #82d182;
+  background-color: #00A355;
 }
 
 .secondary-auth-button {
   width: 300px;
   height: 42px;
-  background-color: #F4F4F4;
+  background-color: #EFF0F3;
   border: none;
-  color: #393C41;
+  color: #62636C;
   font-size: 14px;
   border-radius: 5px;
   margin-bottom: 10px;
@@ -66,12 +66,12 @@
 }
 
 .secondary-auth-button:hover {
-  background-color: #EDEDED;
+  background-color: #E7E8EC;
 }
 
 .need-help-link {
   text-align: right;
-  color: #67C96C;
+  color: #11B05E;
   margin-bottom: 30px;
   font-family: Inter, sans-serif;
   font-size: 14px;
@@ -125,7 +125,7 @@
 }
 
 .auth-checkbox-container a {
-  color: #67C96C;
+  color: #11B05E;
   text-decoration: none;
 }
 
@@ -141,7 +141,7 @@
 }
 
 .auth-checkbox-container a {
-  color: #67C96C;
+  color: #11B05E;
   text-decoration: none;
 }
 
@@ -160,7 +160,7 @@
 }
 
 .auth-checkbox-container a {
-  color: #67C96C;
+  color: #11B05E;
   text-decoration: none;
 }
 
@@ -180,7 +180,7 @@
 }
 
 .auth-checkbox-container a {
-  color: #67C96C;
+  color: #11B05E;
   text-decoration: underline;
 }
 
@@ -243,7 +243,7 @@
 .primary-profile-info-button {
   width: 225px;
   height: 40px;
-  background-color: #67C96C;
+  background-color: #11B05E;
   border: none;
   color: white;
   font-size: 14px;
@@ -253,7 +253,7 @@
 }
 
 .primary-profile-info-button:hover {
-  background-color: #82d182;
+  background-color: #00A355;
 }
 
 .secondary-profile-info-button {
@@ -370,7 +370,7 @@
 }
 
 .modal-content input:focus {
-  border: 1px solid #67C96C;
+  border: 1px solid #11B05E;
   box-shadow: 0 0 2px rgba(103, 201, 108, 0.4);
   outline: none;
 }

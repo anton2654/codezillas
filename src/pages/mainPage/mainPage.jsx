@@ -23,9 +23,12 @@ const MainPage = () => {
                 </div>
                 <div className="search-container">
                     <h2>Знайдіть страву за вашим настроєм і запасами</h2>
-                    <div className="search">
-                        <Search strokeWidth={1.5}/>
-                        <input placeholder="Знайти страву..."/>
+                    <div className="search-wrapper">
+                        <div className="search">
+                            <Search strokeWidth={1.5}/>
+                            <input placeholder="Знайти страву..."/>
+                        </div>
+                        <button>Шукати</button>
                     </div>
                 </div>
                 <div className="section">

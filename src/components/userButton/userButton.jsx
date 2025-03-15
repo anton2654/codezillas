@@ -8,7 +8,7 @@ const UserButton = () => {
     const [open, setOpen] = React.useState(false);
 
     // temp solution for sure
-    const currentUser = false;
+    const currentUser = true;
 
     return currentUser ? (
         <div className="user-button">

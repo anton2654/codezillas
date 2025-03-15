@@ -17,8 +17,8 @@
     font-family: Inter, sans-serif;
     border-radius: 5px;
     border: none;
-    background: #EEF1F0;
-    color: #59605D;
+    background: #EFF0F3;
+    color: #62636C;
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
@@ -29,18 +29,18 @@
     font-family: Inter, sans-serif;
     border-radius: 5px;
     border: none;
-    background: #67C96C;
+    background: #11B05E;
     color: white;
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
 
 .login-button:hover {
-    background: #E6E9E8;
+    background: #E7E8EC;
 }
 
 .register-button:hover {
-    background: #75d57a;
+    background: #00A355;
 }
 
 .auth-buttons {
