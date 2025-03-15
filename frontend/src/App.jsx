@@ -7,6 +7,7 @@ import Profile from "./pages/Profile.jsx";
 import Fridge from "./pages/Fridge.jsx";
 import Dishes from "./pages/dishes/Dishes.jsx";
 import MainPage from "./pages/mainPage/mainPage.jsx";
+import Create from "./pages/create/create.jsx";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/fridge" element={<Fridge />} />
         <Route path="/dishes" element={<Dishes />} />
+        <Route path="/create" element={<Create />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>
