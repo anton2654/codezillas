@@ -28,9 +28,15 @@ DEBUG = True
 #ALLOWED_HOSTS = ["127.0.0.1", "192.168.0.105", "192.168.0.105", "localhost"]
 ALLOWED_HOSTS = ['*']
 
+# CORS_ALLOW_ALL_ORIGINS = True # НЕ використовувати у продакшені!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 CORS_ALLOWED_ORIGINS = [
     "http://192.168.0.105:3000",
-    "http://localhost:3000"
+    "http://localhost:3000",
+    "http://localhost:5173",  # React Vite сервер
+    "http://127.0.0.1:5173",  
+    "http://localhost:5174",  # React Vite сервер
+    "http://127.0.0.1:5174",  # Альтернативний варіан# Альтернативний варіант
 ]
 
 # Application definition
@@ -44,7 +50,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "corsheaders",
     'rest_framework',
-    'drf_yasg',
     'api',
 ]
 
