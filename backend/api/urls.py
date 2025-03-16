@@ -3,7 +3,8 @@ from rest_framework.routers import DefaultRouter
 from rest_framework import permissions
 from rest_framework.views import APIView
 from .views import (get_meal,get_ingredient, get_meal_ingredients,get_meals, calculate_total_nutrition,
-                    get_ingredient_categories,get_ingredients,create_meal,create_user,add_ingredient_to_meal)
+                    get_ingredient_categories,get_ingredients,create_meal,create_user,add_ingredients_to_meal,
+                    get_user)
 from rest_framework.response import Response
 
 class APIRootView(APIView):
@@ -16,7 +17,7 @@ class APIRootView(APIView):
             'meal_ingredients': 'http://127.0.0.1:8000/api/meal/ingredients/<meal_id>/',  
             'calculate_nutrition':'http://127.0.0.1:8000/api/meal/calculate_nutrition/<meal_id>/',
             'create_meal':'http://127.0.0.1:8000/api/meal/create/',
-            'add_ingredient_to_meal': 'http://127.0.0.1:8000/api/meal/add_ingredient/<meal_id>/',
+            'add_ingredients_to_meal': 'http://127.0.0.1:8000/api/meal/add_ingredients/<meal_id>/',
 
             #INGREDIENT
             'ingredient': 'http://127.0.0.1:8000/api/ingredient/<ingredient_id>/',
@@ -24,8 +25,8 @@ class APIRootView(APIView):
             'ingredients_categories': 'http://127.0.0.1:8000/api/ingredient/categories/',
 
             #USER
+            'get_user': 'http://127.0.0.1:8000/api/user/<user_id>/',
             'create_user': 'http://127.0.0.1:8000/api/user/create/',
-
         }
         return Response(data)
     
@@ -40,7 +41,7 @@ urlpatterns = [
     path('meal/ingredients/<int:meal_id>/', get_meal_ingredients),
     path('meal/calculate_nutrition/<int:meal_id>/',calculate_total_nutrition),
     path('meal/create/',create_meal),
-    path('meal/add_ingredient/<int:meal_id>/',add_ingredient_to_meal),
+    path('meal/add_ingredients/<int:meal_id>/',add_ingredients_to_meal),
 
     #INGREDIENT
     path('ingredient/<int:ingredient_id>/',get_ingredient),
@@ -48,7 +49,8 @@ urlpatterns = [
     path('ingredient/categories/',get_ingredient_categories),
 
     #USER
-    path('user/create/',create_user)
+    path('user/create/',create_user),
+    path('user/<user_id>', get_user),
     
 
  ]
