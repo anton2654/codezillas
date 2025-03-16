@@ -35,7 +35,7 @@ const MainPage = () => {
                     <h2>Популярне</h2>
                     <div className="product-list">
                         {productsData.slice(0, 5).map((product) => (
-                            <ProductCard key={product.id} product={product} />
+                            <ProductCard key={product.id} dish={product} />
                         ))}
                     </div>
                     <button>Більше</button>
@@ -44,7 +44,7 @@ const MainPage = () => {
                     <h2>Вам може сподобатись</h2>
                     <div className="product-list">
                         {productsData.slice(0, 5).map((product) => (
-                            <ProductCard key={product.id} product={product} />
+                            <ProductCard key={product.id} dish={product} />
                         ))}
                     </div>
                     <button>Більше</button>
@@ -53,7 +53,7 @@ const MainPage = () => {
                     <h2>Вибір редакції</h2>
                     <div className="product-list">
                         {productsData.slice(0, 5).map((product) => (
-                            <ProductCard key={product.id} product={product} />
+                            <ProductCard key={product.id} dish={product} />
                         ))}
                     </div>
                     <button>Більше</button>
