@@ -70,6 +70,11 @@ def create_meal(request):
         return Response(serializer.data, status=201)
     return Response(serializer.errors, status=400)
 
+@api_view(['GET'])
+def get_meal_categories(request):
+    categories = Recipe.objects.values_list('category', flat=True).distinct()
+    return Response({'categories': list(categories)})
+
 
 # @api_view(['POST'])
 # def add_ingredient_to_meal(request, meal_id):
@@ -245,6 +250,32 @@ def create_user(request):
 #================================================================
 #FRIDGE
 
+
+#TODO Throw correct exception
+@api_view(['GET'])
+def get_fridge(request,user_id):
+    try:
+        fridge_ingredients = UserMenu.objects.filter(user=user_id)
+        serializer = FridgeSerializer(fridge_ingredients, many=True)
+        
+        return Response(serializer.data)
+    
+    except UserMenu.DoesNotExist:
+        return Response({'error': 'Користувача не знайдено'}, status=404) 
+
+
+#TODO Throw correct exception
+@api_view(['GET'])
+def get_fridge_ingredient(request,user_id,ingredient_id):
+    try:
+        ingredient=UserMenu.objects.get(ingredient=ingredient_id,user=user_id)
+        serializer= FridgeSerializer(ingredient)
+        return Response(serializer.data)
+    except UserMenu.DoesNotExist:
+        return Response({'error': 'Продукт не знайдено'}, status=404) 
+
+
+#TODO Write correct fuction to add ingredient into fridge
 @api_view(['POST'])
 def add_ingredient_into_fridge(request):
     serializer = FridgeSerializer(data=request.data)

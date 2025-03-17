@@ -4,7 +4,7 @@ from rest_framework import permissions
 from rest_framework.views import APIView
 from .views import (get_meal,get_ingredient, get_meal_ingredients,get_meals, calculate_total_nutrition,
                     get_ingredient_categories,get_ingredients,create_meal,create_user,add_ingredients_to_meal,
-                    get_user)
+                    get_user, get_fridge,get_fridge_ingredient, get_meal_categories,add_ingredient_into_fridge)
 from rest_framework.response import Response
 
 class APIRootView(APIView):
@@ -18,6 +18,7 @@ class APIRootView(APIView):
             'calculate_nutrition':'http://127.0.0.1:8000/api/meal/calculate_nutrition/<meal_id>/',
             'create_meal':'http://127.0.0.1:8000/api/meal/create/',
             'add_ingredients_to_meal': 'http://127.0.0.1:8000/api/meal/add_ingredients/<meal_id>/',
+            'get_meal_categories':'http://127.0.0.1:8000/api/meal/categories',
 
             #INGREDIENT
             'ingredient': 'http://127.0.0.1:8000/api/ingredient/<ingredient_id>/',
@@ -27,6 +28,12 @@ class APIRootView(APIView):
             #USER
             'get_user': 'http://127.0.0.1:8000/api/user/<user_id>/',
             'create_user': 'http://127.0.0.1:8000/api/user/create/',
+
+            #FRIDGE
+            'get_fridge':'http://127.0.0.1:8000/api/user/<user_id>/fridge/',
+            'get_fridge_ingredient':'http://127.0.0.1:8000/api/user/<user_id>/fridge/<ingredient_id>',
+            #'add_ingredient_into_fridge':'http://127.0.0.1:8000/api/user/fridge/add/',
+
         }
         return Response(data)
     
@@ -42,6 +49,7 @@ urlpatterns = [
     path('meal/calculate_nutrition/<int:meal_id>/',calculate_total_nutrition),
     path('meal/create/',create_meal),
     path('meal/add_ingredients/<int:meal_id>/',add_ingredients_to_meal),
+    path('meal/categories/',get_meal_categories),
 
     #INGREDIENT
     path('ingredient/<int:ingredient_id>/',get_ingredient),
@@ -51,6 +59,11 @@ urlpatterns = [
     #USER
     path('user/create/',create_user),
     path('user/<user_id>', get_user),
-    
+
+
+    #FRIDGE
+    path('user/<user_id>/fridge/',get_fridge),
+    path('user/<user_id>/fridge/<ingredient_id>/',get_fridge_ingredient ),
+    path('user/fridge/add/',add_ingredient_into_fridge),
 
  ]
