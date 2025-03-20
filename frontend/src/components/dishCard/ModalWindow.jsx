@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import "./productCard.css";
+import "./DishCard.css";
 
 const ModalWindow = ({
   dish,
@@ -15,6 +15,7 @@ const ModalWindow = ({
           <X className="modal-close-button1" size={30} onClick={closeModal} />
         </div>
         <div className="recipe-details">
+          <img src={dish.photo} alt={dish.name} className="product-img" />
           <p className="recipe-description">{dish.description}</p>
           <div className="recipe-section">
             <h2 className="section-title">Інгредієнти</h2>

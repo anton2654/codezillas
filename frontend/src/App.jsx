@@ -4,7 +4,7 @@ import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import Error from "./pages/Error.jsx";
 import Profile from "./pages/Profile.jsx";
-import Fridge from "./pages/Fridge.jsx";
+import Fridge from "./pages/fridge/Fridge.jsx";
 import Dishes from "./pages/dishes/Dishes.jsx";
 import MainPage from "./pages/mainPage/mainPage.jsx";
 import Create from "./pages/create/create.jsx";
@@ -23,7 +23,7 @@ function App() {
         <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
 export default App;
