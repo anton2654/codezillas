@@ -3,6 +3,7 @@ import Header from "../../components/header/Header.jsx";
 import Footer from "../../components/footer/Footer.jsx";
 import "./mainPage.css";
 import { Search } from "lucide-react";
+import ScrollToTop from "../../components/scrollUp/scrollButt.jsx";
 import { productsData } from "./data";
 import DishCard from "../../components/dishCard/DishCard.jsx";
 
@@ -21,6 +22,7 @@ const MainPage = () => {
           </div>
           <button>Спробувати!</button>
         </div>
+
         <div className="search-container">
           <h2>Знайдіть страву за вашим настроєм і запасами</h2>
           <div className="search-wrapper">
@@ -31,6 +33,7 @@ const MainPage = () => {
             <button>Шукати</button>
           </div>
         </div>
+
         <div className="section">
           <h2>Популярне</h2>
           <div className="product-list">
@@ -40,6 +43,7 @@ const MainPage = () => {
           </div>
           <button>Більше</button>
         </div>
+
         <div className="section">
           <h2>Вам може сподобатись</h2>
           <div className="product-list">
@@ -49,6 +53,7 @@ const MainPage = () => {
           </div>
           <button>Більше</button>
         </div>
+
         <div className="section">
           <h2>Вибір редакції</h2>
           <div className="product-list">
@@ -59,7 +64,9 @@ const MainPage = () => {
           <button>Більше</button>
         </div>
       </div>
+
       <Footer />
+      <ScrollToTop />
     </div>
   );
 };

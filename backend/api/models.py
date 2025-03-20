@@ -52,6 +52,21 @@ class Recipe(models.Model):
     fats = models.FloatField(blank=True, null=True)
     carbohydrates = models.FloatField(blank=True, null=True)
     photo = models.CharField(max_length=255)
+    
+    CATEGORY_CHOICES = [
+        ('Сніданки', 'Сніданки'),
+        ('Обіди', 'Обіди'),
+        ('Вечері', 'Вечері'),
+        ('Десерти', 'Десерти'),
+        ('Салати', 'Салати'),
+        ('Гарніри', 'Гарніри'),
+        ('Закуски', 'Закуски'),
+        ('Снеки', 'Снеки'),
+        ('Пісні страви', 'Пісні страви'),
+        ('Перші страви', 'Перші страви'),
+        ('Другі страви', 'Другі страви'),
+    ]
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
 
     #ingredients = models.ManyToManyField(Ingredient, through='RecipeIngredient')
     class Meta:
@@ -94,13 +109,13 @@ class ShoppingList(models.Model):
 
 class UserMenu(models.Model):
     id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, blank=True, null=True)
-    menu_date = models.DateField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+    quantity = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
         managed = False
         db_table = 'user_menu'
 
     def __str__(self):
-        return f"{self.user.name if self.user else 'Unknown'} – {self.recipe.name} on {self.menu_date}"
+        return f"{self.user.name if self.user else 'Unknown'} – {self.ingredient.name} {self.quantity}"

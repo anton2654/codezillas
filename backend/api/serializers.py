@@ -30,8 +30,8 @@ class MealIngredientSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class FridgeSerializer(serializers.ModelSerializer):
-    recipe = MealSerializer(read_only=True)
-    user = UserSerializer(read_only=True) 
+    #ingredient = IngredientSerializer(read_only=True)
+    #user = UserSerializer(read_only=True) 
 
     class Meta:
         model = UserMenu
