@@ -2,6 +2,7 @@ import React from 'react';
 import Header from "../../components/header/Header.jsx";
 import Footer from "../../components/footer/Footer.jsx";
 import "./mainPage.css";
+import ScrollToTop from '../../components/scrollUp/scrollButt.jsx';
 import { Search } from 'lucide-react';
 import { productsData } from "./data";
 import ProductCard from "../../components/productCard/ProductCard.jsx";
@@ -25,8 +26,8 @@ const MainPage = () => {
                     <h2>Знайдіть страву за вашим настроєм і запасами</h2>
                     <div className="search-wrapper">
                         <div className="search">
-                            <Search strokeWidth={1.5}/>
-                            <input placeholder="Знайти страву..."/>
+                            <Search strokeWidth={1.5} />
+                            <input placeholder="Знайти страву..." />
                         </div>
                         <button>Шукати</button>
                     </div>
@@ -60,6 +61,7 @@ const MainPage = () => {
                 </div>
             </div>
             <Footer />
+            <ScrollToTop />
         </div>
     );
 };

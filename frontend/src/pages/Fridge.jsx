@@ -5,8 +5,9 @@ import Footer from "../components/footer/Footer.jsx";
 const Fridge = () => {
     return (
         <div>
-            <Header/>
-            <Footer/>
+            <Header />
+            <Footer />
+            <ScrollToTop />
         </div>
     );
 };
