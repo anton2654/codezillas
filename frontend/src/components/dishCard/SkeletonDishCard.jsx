@@ -1,7 +1,7 @@
 import React from "react";
 import ContentLoader from "react-content-loader";
 
-const SkeletonProductCard = (props) => (
+const SkeletonDishCard = (props) => (
   <ContentLoader
     speed={2}
     width={270}
@@ -18,6 +18,6 @@ const SkeletonProductCard = (props) => (
   </ContentLoader>
 );
 
-export default SkeletonProductCard;
+export default SkeletonDishCard;
 
-//SkeletonProductCard
+//SkeletonDishCard

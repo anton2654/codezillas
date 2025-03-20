@@ -5,8 +5,8 @@ import axios from "axios";
 import "./dishes.css";
 import Header from "../../components/header/Header.jsx";
 import Footer from "../../components/footer/Footer.jsx";
-import ProductCard from "../../components/productCard/ProductCard.jsx";
-import SkeletonProductCard from "../../components/productCard/SkeletonProductCard.jsx";
+import DishCard from "../../components/dishCard/DishCard.jsx";
+import SkeletonDishCard from "../../components/dishCard/SkeletonDishCard.jsx";
 import Categories from "../../components/categories/Categories.jsx";
 
 const Dishes = () => {
@@ -24,7 +24,7 @@ const Dishes = () => {
       .get("http://127.0.0.1:8000/api/meal/all/")
       .then((response) => {
         setItems(response.data);
-        console.log(response.data)
+        console.log(response.data);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -41,7 +41,7 @@ const Dishes = () => {
     }
   }, []);
 
-  const filteredProducts =
+  const filteredDishes =
     activeCategory === "Все"
       ? items
       : items.filter((product) => product.category === activeCategory);
@@ -55,8 +55,8 @@ const Dishes = () => {
     setVisibleCount((prevCount) => prevCount + 10);
   };
 
-  const skeletons = [...new Array(6)].map((_, index) => (
-    <SkeletonProductCard key={index} />
+  const skeletons = [...new Array(8)].map((_, index) => (
+    <SkeletonDishCard key={index} />
   ));
 
   return (
@@ -69,16 +69,13 @@ const Dishes = () => {
           onCategoryClick={setActiveCategory}
         />
         <div className="product-list">
-          {/* <SkeletonProductCard /> */}
           {isLoading
             ? skeletons
-            : filteredProducts
+            : filteredDishes
                 .slice(0, visibleCount)
-                .map((product) => (
-                  <ProductCard key={product.id} dish={product} />
-                ))}
+                .map((product) => <DishCard key={product.id} dish={product} />)}
         </div>
-        {visibleCount < filteredProducts.length && (
+        {visibleCount < filteredDishes.length && (
           <div className="button-container">
             <button className="more-button" onClick={handleShowMore}>
               Більше
