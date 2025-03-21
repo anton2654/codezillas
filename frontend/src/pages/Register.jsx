@@ -1,30 +1,115 @@
+import {useState} from "react";
+
 const Register = () => {
+    const [values, setValues] = useState({
+        first_name: "",
+        last_name: "",
+        email: "",
+        password: "",
+        confirm_password: "",
+    });
+
+    const [errors, setErrors] = useState({});
+
+    const handleChange = (e) => {
+        setValues(prev => ({ ...prev, [e.target.name]: e.target.value }));
+        setErrors(prev => ({ ...prev, [e.target.name]: "" }));
+    };
+
+    const validate = () => {
+        const newErrors = {};
+        if (!values.first_name) {
+            newErrors.first_name = "Уведіть ваше ім'я.";
+        }
+
+        if (!values.last_name) {
+            newErrors.last_name = "Уведіть ваше прізвище.";
+        }
+
+        if (!values.email) {
+            newErrors.email = "Уведіть вашу адресу електронної пошти.";
+        }
+
+        if (!values.password) {
+            newErrors.password = "Уведіть ваш пароль.";
+        }
+
+        if (!values.confirm_password) {
+            newErrors.confirm_password = "Підтвердіть пароль.";
+        }
+
+        if (values.password !== values.confirm_password) {
+            newErrors.confirm_password = "Пароль не збігається.";
+        }
+
+        return newErrors;
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const formErrors = validate();
+
+        if (Object.keys(formErrors).length > 0) {
+            setErrors(formErrors);
+        } else {
+            setErrors({});
+            console.log(values);
+        }
+    };
+
     return (
         <div className="auth-form">
-
             <div className="logo-container">
                 <img src="/logo.png" alt="Логотип" className="auth-logo"/>
             </div>
+            <form onSubmit={handleSubmit}>
+                <input
+                    className={`auth-input ${errors.email ? "input-error" : ""}`}
+                    placeholder="Ім'я"
+                    name="first_name"
+                    onChange={handleChange}
+                    value={values.first_name}
+                />
+                {errors.first_name && <div className="auth-error">{errors.first_name}</div>}
 
-            <input className="auth-input" placeholder="Ім'я"/>
-            <input className="auth-input" placeholder="Прізвище"/>
-            <input className="auth-input" placeholder="Email"/>
-            <input className="auth-input" placeholder="Пароль" type="password"/>
-            <input className="auth-input" placeholder="Підтвердіть пароль" type="password"/>
+                <input
+                    className={`auth-input ${errors.email ? "input-error" : ""}`}
+                    placeholder="Прізвище"
+                    name="last_name"
+                    onChange={handleChange}
+                    value={values.last_name}
+                />
+                {errors.last_name && <div className="auth-error">{errors.last_name}</div>}
 
-            <div className="auth-checkbox-container">
-                <input type="checkbox" id="terms" className="auth-checkbox"/>
-                <label htmlFor="terms">
-                    Я підтверджую, що ознайомився(-лася) з
-                    <a href="/terms" target="_blank"> Умовами користування </a>
-                    та
-                    <a href="/privacy-policy" target="_blank"> Політикою конфіденційності </a>
-                    і погоджуюсь із ними.
-                </label>
-            </div>
+                <input
+                    className={`auth-input ${errors.email ? "input-error" : ""}`}
+                    placeholder="Email"
+                    name="email"
+                    onChange={handleChange}
+                    value={values.email}
+                />
+                {errors.email && <div className="auth-error">{errors.email}</div>}
 
+                <input
+                    className={`auth-input ${errors.email ? "input-error" : ""}`}
+                    placeholder="Пароль"
+                    name="password"
+                    onChange={handleChange}
+                    value={values.password}
+                />
+                {errors.password && <div className="auth-error">{errors.password}</div>}
 
-            <button className="primary-auth-button">Продовжити</button>
+                <input
+                    className={`auth-input ${errors.email ? "input-error" : ""}`}
+                    placeholder="Підтвердіть пароль"
+                    name="confirm_password"
+                    onChange={handleChange}
+                    value={values.confirm_password}
+                />
+                {errors.confirm_password && <div className="auth-error">{errors.confirm_password}</div>}
+                <button type="submit" className="primary-auth-button">Продовжити</button>
+            </form>
+
         </div>
     );
 };

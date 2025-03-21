@@ -21,7 +21,7 @@
 .auth-input {
   width: 300px;
   height: 42px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   padding: 12px 15px;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -29,6 +29,12 @@
   font-size: 14px;
   font-family: Inter, sans-serif;
   font-weight: lighter;
+}
+
+.input-error {
+  border: 1px solid #DC3E42;
+  box-shadow: 0 0 2px #DC3E42;
+  outline: none;
 }
 
 .auth-input:focus {
@@ -113,6 +119,14 @@
   margin-bottom: 50px;
 }
 
+.auth-error {
+  color: #DC3E42;
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  margin-top: -20px;
+  min-height: 20px;
+}
+
 .auth-checkbox-container {
   display: flex;
   align-items: start;
@@ -121,7 +135,6 @@
   font-family: Inter, sans-serif;
   color: #6E6E6E;
   font-weight: 300;
-  margin-bottom: 35px;
 }
 
 .auth-checkbox-container a {

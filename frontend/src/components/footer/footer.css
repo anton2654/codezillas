@@ -3,7 +3,7 @@
     background-color: #424141;
     height: 194px;
     width: 100%;
-    margin-top: 100px;
+    margin-top: 120px;
 }
 
 footer {
@@ -15,7 +15,7 @@ footer {
     color: white;
     font-size: 14px;
     font-family: Inter, sans-serif;
-    margin-top: 20px;
+    margin-top: 50px;
 }
 
 footer .logo1 {
