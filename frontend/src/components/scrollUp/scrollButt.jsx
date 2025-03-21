@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { ArrowUp } from "lucide-react";
 import "./ScrollToTop.css";
 
 const ScrollToTop = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [bottomOffset, setBottomOffset] = useState(20);
-    const footerRef = useRef(null);
 
     useEffect(() => {
         const toggleVisibility = () => {
@@ -22,7 +21,7 @@ const ScrollToTop = () => {
 
     useEffect(() => {
         const checkFooterPosition = () => {
-            const footer = document.querySelector("footer"); // Отримуємо футер
+            const footer = document.querySelector("footer");
             if (footer) {
                 const rect = footer.getBoundingClientRect();
                 const windowHeight = window.innerHeight;
@@ -50,9 +49,9 @@ const ScrollToTop = () => {
         <div
             className={`scroll-to-top ${isVisible ? "show" : ""}`}
             onClick={scrollToTop}
-            style={{ bottom: `${bottomOffset}px` }} // Динамічно змінюємо позицію
+            style={{ bottom: `${bottomOffset}px` }}
         >
-            <ArrowUp strokeWidth={1.5} />
+            <ArrowUp size={25} strokeWidth={1.5} />
         </div>
     );
 };
