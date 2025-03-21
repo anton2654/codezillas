@@ -1,0 +1,32 @@
+.callout-wrapper {
+    position: static;
+    display: flex;
+    width: 500px;
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: Inter, sans-serif;
+    align-items: flex-start;
+    overflow: auto;
+    word-break: break-word;
+    gap: 8px;
+}
+
+.callout-error {
+    background: #FEEBEC;
+    color: #CE2C31;
+}
+
+.callout-success {
+    background: #E6F6EB;
+    color: #218358;
+}
+
+.callout-warning {
+    background: #FFEFD6;
+    color: #CC4E00;
+}
+
+.icon {
+    flex-shrink: 0;
+}
