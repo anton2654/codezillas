@@ -4,7 +4,8 @@ from rest_framework import permissions
 from rest_framework.views import APIView
 from .views import (get_meal,get_ingredient, get_meal_ingredients,get_meals, calculate_total_nutrition,
                     get_ingredient_categories,get_ingredients,create_meal,create_user,add_ingredients_to_meal,
-                    get_user, get_fridge,get_fridge_ingredient, get_meal_categories,add_ingredient_into_fridge)
+                    get_user, get_fridge,get_fridge_ingredient, get_meal_categories,add_ingredient_into_fridge,
+                    remove_ingredient_from_fridge, menu_generator)
 from rest_framework.response import Response
 
 class APIRootView(APIView):
@@ -31,8 +32,13 @@ class APIRootView(APIView):
 
             #FRIDGE
             'get_fridge':'http://127.0.0.1:8000/api/user/<user_id>/fridge/',
-            'get_fridge_ingredient':'http://127.0.0.1:8000/api/user/<user_id>/fridge/<ingredient_id>',
-            #'add_ingredient_into_fridge':'http://127.0.0.1:8000/api/user/fridge/add/',
+            'get_fridge_ingredient':'http://127.0.0.1:8000/api/user/<user_id>/fridge/<ingredient_id>/',
+            'add_ingredient_into_fridge':'http://127.0.0.1:8000/api/user/<user_id>/fridge/add/',
+            'remove_ingredient_from_fridge':'http://127.0.0.1:8000/api/user/<user_id>/fridge/remove/<ingredient_id>',
+
+
+            #GENERATOR
+            'generator':'http://127.0.0.1:8000/api/user/<user_id>/generator/'
 
         }
         return Response(data)
@@ -63,7 +69,11 @@ urlpatterns = [
 
     #FRIDGE
     path('user/<user_id>/fridge/',get_fridge),
-    path('user/<user_id>/fridge/<ingredient_id>/',get_fridge_ingredient ),
-    path('user/fridge/add/',add_ingredient_into_fridge),
+    path('user/<user_id>/fridge/ingredient/<ingredient_id>/',get_fridge_ingredient ),
+    path('user/<user_id>/fridge/add/',add_ingredient_into_fridge),
+    path('user/<user_id>/fridge/remove/<ingredient_id>',remove_ingredient_from_fridge),
+
+    #GENERATOR
+    path('user/<user_id>/generator/',menu_generator)
 
  ]
