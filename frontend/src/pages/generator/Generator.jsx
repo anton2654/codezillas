@@ -89,7 +89,17 @@ const Generator = () => {
           activeCategory={activeCategory}
           onCategoryClick={handleCategoryChange}
         /> */}
-        <h2>ingredient available meals</h2>
+        <h2>Available meals</h2>
+
+        <div className="product-list">
+          {isLoading
+            ? skeletons
+            : ingredientAvailableMeals.map((product) => (
+                <DishCard key={product.id} dish={product} />
+              ))}
+        </div>
+
+        <h2>Ingredient available meals</h2>
 
         <div className="product-list">
           {isLoading

@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useContext } from "react";
 // import { categoriesDishes } from "./data";
 import axios from "axios";
 
@@ -9,8 +9,11 @@ import DishCard from "../../components/dishCard/DishCard.jsx";
 import SkeletonDishCard from "../../components/dishCard/SkeletonDishCard.jsx";
 import Categories from "../../components/categories/Categories.jsx";
 import Pagination from "../../components/pagination/Pagination.jsx";
+import Search from "../../components/search/Search.jsx";
+import { SearchContext } from "../../App";
 
 const Dishes = () => {
+  const { searchValue } = useContext(SearchContext);
   const [dishesCategories, setDishCategory] = useState([]);
   const [activeCategory, setActiveCategory] = useState("Все");
   const [items, setItems] = useState([]);
@@ -45,7 +48,7 @@ const Dishes = () => {
         console.log(error);
       });
   };
-  
+
   useEffect(() => {
     setIsLoading(true);
 
@@ -56,14 +59,24 @@ const Dishes = () => {
     }
   }, []);
 
-  const filteredDishes =
-    activeCategory === "Все"
-      ? items
-      : items.filter((product) => product.category === activeCategory);
+  // Фільтрація за категорією та пошуком
+  const filteredDishes = items.filter(
+    (product) =>
+      (activeCategory === "Все" || product.category === activeCategory) &&
+      product.name.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
+  // const filteredDishes =
+  //   activeCategory === "Все"
+  //     ? items
+  //     : items.filter((product) => product.category === activeCategory);
 
   const indexOfLastDish = currentPage * itemsPerPage;
   const indexOfFirstDish = indexOfLastDish - itemsPerPage;
-  const currentDishes = filteredDishes.slice(indexOfFirstDish, indexOfLastDish);
+  const displayedDishes = filteredDishes.slice(
+    indexOfFirstDish,
+    indexOfLastDish
+  );
 
   const handleCategoryChange = (category) => {
     setActiveCategory(category);
@@ -78,15 +91,20 @@ const Dishes = () => {
     <div className="container">
       <Header />
       <div className="dishes-wrapper">
-        <Categories
-          categories={dishesCategories  }
-          activeCategory={activeCategory}
-          onCategoryClick={handleCategoryChange}
-        />
+        <div className="dishes-wrapper-top">
+          <Categories
+            categories={dishesCategories}
+            activeCategory={activeCategory}
+            onCategoryClick={handleCategoryChange}
+          />
+
+          <Search />
+        </div>
+
         <div className="product-list">
           {isLoading
             ? skeletons
-            : currentDishes.map((product) => (
+            : displayedDishes.map((product) => (
                 <DishCard key={product.id} dish={product} />
               ))}
         </div>

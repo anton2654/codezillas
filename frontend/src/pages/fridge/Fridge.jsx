@@ -110,7 +110,7 @@ const Fridge = () => {
         <div className="product-list">
           {isLoading
             ? skeletons
-            : filteredProducts.map((product) => (
+            : displayedProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
         </div>

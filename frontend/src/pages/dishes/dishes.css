@@ -2,6 +2,14 @@
     padding: 35px 35px;
 }
 
+.dishes-wrapper-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Додає перенесення, якщо елементи не вміщаються */
+    gap: 10px; /* Додає відступи між елементами */
+}
+
 .tabs {
     display: flex;
     margin-bottom: 30px;

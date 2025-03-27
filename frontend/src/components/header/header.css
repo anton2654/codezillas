@@ -38,6 +38,10 @@
   color: #11B05E;
 }
 
+.header-nav-link.active {
+  color: #11B05E;
+}
+
 .header-logo {
   display: flex;
   flex: 1;
