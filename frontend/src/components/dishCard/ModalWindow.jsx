@@ -1,5 +1,6 @@
 import { X } from "lucide-react";
 import "./DishCard.css";
+import "./modalWindow.css"
 
 const ModalWindow = ({
   dish,
@@ -22,22 +23,23 @@ const ModalWindow = ({
             <ul className="ingredients-list">
               {productsForDish.map((item, index) => (
                 <li key={index}>
-                  {item.ingredient.name} - {item.quantity} г
+                  <span>{item.ingredient.name}</span> {item.quantity} г
                 </li>
               ))}
             </ul>
           </div>
-          <div className="recipe-section">
-            <h3>
-              Загальна вага:{" "}
-              {productsForDish.reduce((sum, item) => sum + item.quantity, 0)} г
-            </h3>
 
-            <h3>Калорії: {calculatedNutrition.calories}</h3>
-            <h3>Білки: {calculatedNutrition.proteins}</h3>
-            <h3>Жири: {calculatedNutrition.fats}</h3>
-            <h3>Вуглеводи: {calculatedNutrition.carbohydrates}</h3>
+          <div className="recipe-section">
+            <h3 className="section-title">Харчова цінність</h3>
+            <ul className="nutrition-info-list">
+              <li><span>Загальна вага:</span> {productsForDish.reduce((sum, item) => sum + item.quantity, 0)} г</li>
+              <li><span>Калорії:</span> {calculatedNutrition.calories}</li>
+              <li><span>Білки:</span> {calculatedNutrition.proteins}</li>
+              <li><span>Жири:</span> {calculatedNutrition.fats}</li>
+              <li><span>Вуглеводи:</span> {calculatedNutrition.carbohydrates}</li>
+            </ul>
           </div>
+
         </div>
       </div>
     </div>
