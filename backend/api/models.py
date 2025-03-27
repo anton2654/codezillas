@@ -6,17 +6,48 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
-class User(models.Model):
-    id = models.AutoField(primary_key=True)  # Явне визначення primary_key
-    email = models.EmailField(unique=True, max_length=255)  # EmailField для перевірки
-    password = models.CharField(max_length=255)
-    name = models.CharField(max_length=255)
+class UserManager(BaseUserManager):
+    def create_user(self, username, name, password=None):
+        if not username:
+            raise ValueError('The Username field must be set')
+        if not name:
+            raise ValueError('The Name field must be set')
+        user = self.model(username=username, name=name)
+        user.set_password(password)  # Hashes the password
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, username, name, password=None):
+        user = self.create_user(username, name, password)
+        user.is_superuser = True
+        user.is_staff = True
+        user.save(using=self._db)
+        return user
+
+    def get_by_natural_key(self, username):
+        return self.get(username=username)
+
+class User(AbstractBaseUser, PermissionsMixin):
+    id = models.AutoField(primary_key=True)
+    username = models.CharField(max_length=255, unique=True)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
     budget = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     calorie_norm = models.IntegerField(blank=True, null=True)
     diet_type = models.CharField(max_length=255, blank=True, null=True)
     allergies = models.TextField(blank=True, null=True)
     food_preferences = models.TextField(blank=True, null=True)
+
+    # Add fields required by PermissionsMixin and AbstractBaseUser
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    objects = UserManager()
+
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['name']
 
     class Meta:
         managed = False

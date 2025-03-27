@@ -1,13 +1,20 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from django.conf import settings
+from rest_framework import viewsets, generics
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from .models import Recipe, Ingredient,RecipeIngredient,UserMenu,User
 import json
-from .serializers import MealSerializer,IngredientSerializer,MealIngredientSerializer,UserSerializer,ShoppingListSerializer,FridgeSerializer
+from .serializers import (MealSerializer,IngredientSerializer,MealIngredientSerializer,
+                          UserSerializer,ShoppingListSerializer,FridgeSerializer,
+                          MyTokenObtainPairSerializer, RegisterSerializer)
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.views import APIView
+from rest_framework_simplejwt.settings import api_settings
 
 # GET	Отримати дані (читання)
 # POST	Створити новий запис
@@ -189,10 +196,85 @@ def get_ingredient_categories(request):
     categories = Ingredient.objects.values_list('category', flat=True).distinct()
     return Response({'categories': list(categories)})
 
-
-
 #================================================================
 #USER
+class CookieTokenObtainPairView(TokenObtainPairView):
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.user
+        refresh = RefreshToken.for_user(user)
+        access_token = refresh.access_token
+
+        response = Response({"message": "Login successful"}, status=status.HTTP_200_OK)
+        response.set_cookie(
+            key='access_token',
+            value=str(access_token),
+            httponly=True,
+            secure=getattr(settings, 'SECURE_COOKIES', False),
+            samesite='Lax',
+            max_age=api_settings.ACCESS_TOKEN_LIFETIME.total_seconds()
+        )
+        response.set_cookie(
+            key='refresh_token',
+            value=str(refresh),
+            httponly=True,
+            secure=getattr(settings, 'SECURE_COOKIES', False),
+            samesite='Lax',
+            max_age=api_settings.REFRESH_TOKEN_LIFETIME.total_seconds()
+        )
+        return response
+
+class RegisterView(generics.CreateAPIView):
+    serializer_class = RegisterSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+
+        refresh = RefreshToken.for_user(user)
+        access_token = refresh.access_token
+
+        response = Response({"message": "User registered successfully"}, status=status.HTTP_201_CREATED)
+        response.set_cookie(
+            key='access_token',
+            value=str(access_token),
+            httponly=True,
+            secure=getattr(settings, 'SECURE_COOKIES', False),
+            samesite='Lax',
+            max_age=api_settings.ACCESS_TOKEN_LIFETIME.total_seconds()
+        )
+        response.set_cookie(
+            key='refresh_token',
+            value=str(refresh),
+            httponly=True,
+            secure=getattr(settings, 'SECURE_COOKIES', False),
+            samesite='Lax',
+            max_age=api_settings.REFRESH_TOKEN_LIFETIME.total_seconds()
+        )
+        return response
+
+class CookieTokenRefreshView(TokenRefreshView):
+    def post(self, request, *args, **kwargs):
+        refresh_token = request.COOKIES.get('refresh_token')
+        if not refresh_token:
+            raise InvalidToken('No refresh token found in cookies')
+
+        serializer = self.get_serializer(data={'refresh': refresh_token})
+        serializer.is_valid(raise_exception=True)
+        access_token = serializer.validated_data['access']
+
+        response = Response({"message": "Token refreshed successfully"}, status=status.HTTP_200_OK)
+        response.set_cookie(
+            key='access_token',
+            value=access_token,
+            httponly=True,
+            secure=getattr(settings, 'SECURE_COOKIES', False),
+            samesite='Lax',
+            max_age=api_settings.ACCESS_TOKEN_LIFETIME.total_seconds()
+        )
+        return response
 
 @api_view(['GET'])
 def get_user(request,user_id):
@@ -203,6 +285,15 @@ def get_user(request,user_id):
     except User.DoesNotExist:
         return Response({'error': 'Користувача не знайдено'}, status=404)
 
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
+
+class LogoutView(APIView):
+    def post(self, request):
+        response = Response({"message": "Logout successful"}, status=status.HTTP_200_OK)
+        response.delete_cookie('access_token')
+        response.delete_cookie('refresh_token')
+        return response
 
 @api_view(['POST'])
 def create_user(request):

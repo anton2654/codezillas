@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from .views import (get_meal,get_ingredient, get_meal_ingredients,get_meals, calculate_total_nutrition,
                     get_ingredient_categories,get_ingredients,create_meal,create_user,add_ingredients_to_meal,
                     get_user, get_fridge,get_fridge_ingredient, get_meal_categories,add_ingredient_into_fridge,
-                    remove_ingredient_from_fridge, menu_generator)
+                    remove_ingredient_from_fridge, menu_generator, CookieTokenObtainPairView, RegisterView, CookieTokenRefreshView, LogoutView)
 from rest_framework.response import Response
 
 class APIRootView(APIView):
@@ -29,6 +29,7 @@ class APIRootView(APIView):
             #USER
             'get_user': 'http://127.0.0.1:8000/api/user/<user_id>/',
             'create_user': 'http://127.0.0.1:8000/api/user/create/',
+
 
             #FRIDGE
             'get_fridge':'http://127.0.0.1:8000/api/user/<user_id>/fridge/',
@@ -65,6 +66,11 @@ urlpatterns = [
     #USER
     path('user/create/',create_user),
     path('user/<user_id>', get_user),
+
+    path('user/login/', CookieTokenObtainPairView.as_view(), name='login'),
+    path('user/register/', RegisterView.as_view(), name='register'),
+    path('user/token/refresh/', CookieTokenRefreshView.as_view(), name='token_refresh'),
+    path('user/logout/', LogoutView.as_view(), name='logout'),
 
 
     #FRIDGE
