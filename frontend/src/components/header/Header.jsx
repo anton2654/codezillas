@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./header.css";
-import { Refrigerator, Beef, CupSoda, Calculator } from "lucide-react";
+import { Refrigerator, Beef, CupSoda, Lightbulb  } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import UserButton from "../userButton/userButton.jsx";
 
@@ -45,7 +45,7 @@ const Header = () => {
                 </div>
                 <div className='header-nav-link'>
                     <NavLink to="/generator" className='header-nav-link'>
-                        <Calculator size={25} strokeWidth={1.25}/>
+                        <Lightbulb  size={25} strokeWidth={1.25}/>
                         <span>Генератор</span>
                     </NavLink>
                 </div>
