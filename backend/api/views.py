@@ -375,7 +375,7 @@ def menu_generator(request,user_id):
     if errors:
         response_data["errors"] = errors
 
-    return Response(response_data, status=status.HTTP_201_CREATED if available_meals and ingredients_available_meals else status.HTTP_400_BAD_REQUEST)
+    return Response(response_data, status=status.HTTP_201_CREATED)
 
 
 

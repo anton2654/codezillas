@@ -44,9 +44,9 @@ const Header = () => {
                     </NavLink>
                 </div>
                 <div className='header-nav-link'>
-                    <NavLink to="/calculator" className='header-nav-link'>
+                    <NavLink to="/generator" className='header-nav-link'>
                         <Calculator size={25} strokeWidth={1.25}/>
-                        <span>Калькулятор</span>
+                        <span>Генератор</span>
                     </NavLink>
                 </div>
             </nav>

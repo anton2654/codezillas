@@ -8,6 +8,7 @@ import Fridge from "./pages/fridge/Fridge.jsx";
 import Dishes from "./pages/dishes/Dishes.jsx";
 import MainPage from "./pages/mainPage/mainPage.jsx";
 import Create from "./pages/create/create.jsx";
+import Generator from './pages/generator/Generator.jsx'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/fridge" element={<Fridge />} />
         <Route path="/dishes" element={<Dishes />} />
+        <Route path="/generator" element={<Generator />} />
         <Route path="/create" element={<Create />} />
         <Route path="*" element={<Error />} />
       </Routes>

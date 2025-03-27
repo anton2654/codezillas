@@ -32,6 +32,8 @@ class MealIngredientSerializer(serializers.ModelSerializer):
 class FridgeSerializer(serializers.ModelSerializer):
     #ingredient = IngredientSerializer(read_only=True)
     #user = UserSerializer(read_only=True) 
+    ingredient = IngredientSerializer()
+    quantity = serializers.FloatField()
 
     class Meta:
         model = UserMenu

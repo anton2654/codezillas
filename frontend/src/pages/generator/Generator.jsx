@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from "react";
 // import { categoriesDishes } from "./data";
 import axios from "axios";
 
-import "./dishes.css";
+import "../dishes/dishes.css";
 import Header from "../../components/header/Header.jsx";
 import Footer from "../../components/footer/Footer.jsx";
 import DishCard from "../../components/dishCard/DishCard.jsx";
@@ -10,10 +10,11 @@ import SkeletonDishCard from "../../components/dishCard/SkeletonDishCard.jsx";
 import Categories from "../../components/categories/Categories.jsx";
 import Pagination from "../../components/pagination/Pagination.jsx";
 
-const Dishes = () => {
-  const [dishesCategories, setDishCategory] = useState([]);
+const Generator = () => {
+  //   const [dishesCategories, setDishCategory] = useState([]);
   const [activeCategory, setActiveCategory] = useState("Все");
-  const [items, setItems] = useState([]);
+  const [ingredientAvailableMeals, setIngredientAvailableMeals] = useState([]);
+  const [availableMeals, setAvailableMeals] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -22,9 +23,12 @@ const Dishes = () => {
 
   const getDishes = async () => {
     await axios
-      .get("http://127.0.0.1:8000/api/meal/all/")
+      .get("http://127.0.0.1:8000/api/user/1/generator/")
       .then((response) => {
-        setItems(response.data);
+        setAvailableMeals(response.data["available meals"]);
+        setIngredientAvailableMeals(
+          response.data["ingredient available meals"]
+        );
         console.log(response.data);
         setIsLoading(false);
       })
@@ -33,37 +37,39 @@ const Dishes = () => {
       });
   };
 
-  const getDishesCategories = async () => {
-    await axios
-      .get("http://127.0.0.1:8000/api/meal/categories/")
-      .then((response) => {
-        setDishCategory(["Все", ...response.data.categories]);
-        console.log(response.data.categories);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-  
+  //   const getDishesCategories = async () => {
+  //     await axios
+  //       .get("http://127.0.0.1:8000/api/meal/categories/")
+  //       .then((response) => {
+  //         setDishCategory(["Все", ...response.data.categories]);
+  //         console.log(response.data.categories);
+  //         setIsLoading(false);
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   };
+
   useEffect(() => {
     setIsLoading(true);
 
     if (!componentInited.current) {
       componentInited.current = true;
-      getDishesCategories();
+      //   getDishesCategories();
       getDishes();
     }
   }, []);
 
   const filteredDishes =
     activeCategory === "Все"
-      ? items
-      : items.filter((product) => product.category === activeCategory);
+      ? ingredientAvailableMeals
+      : ingredientAvailableMeals.filter(
+          (product) => product.category === activeCategory
+        );
 
-  const indexOfLastDish = currentPage * itemsPerPage;
-  const indexOfFirstDish = indexOfLastDish - itemsPerPage;
-  const currentDishes = filteredDishes.slice(indexOfFirstDish, indexOfLastDish);
+//   const indexOfLastDish = currentPage * itemsPerPage;
+//   const indexOfFirstDish = indexOfLastDish - itemsPerPage;
+  //   const currentDishes = filteredDishes.slice(indexOfFirstDish, indexOfLastDish);
 
   const handleCategoryChange = (category) => {
     setActiveCategory(category);
@@ -78,15 +84,17 @@ const Dishes = () => {
     <div className="container">
       <Header />
       <div className="dishes-wrapper">
-        <Categories
-          categories={dishesCategories  }
+        {/* <Categories
+          categories={dishesCategories}
           activeCategory={activeCategory}
           onCategoryClick={handleCategoryChange}
-        />
+        /> */}
+        <h2>ingredient available meals</h2>
+
         <div className="product-list">
           {isLoading
             ? skeletons
-            : currentDishes.map((product) => (
+            : ingredientAvailableMeals.map((product) => (
                 <DishCard key={product.id} dish={product} />
               ))}
         </div>
@@ -104,4 +112,4 @@ const Dishes = () => {
   );
 };
 
-export default Dishes;
+export default Generator;

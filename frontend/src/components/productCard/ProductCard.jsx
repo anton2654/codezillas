@@ -58,7 +58,7 @@ const ProductCard = ({ product }) => {
 
   return (
     <div className="product-card" onClick={openModal}>
-      {/* <img src={product.photo} alt={product.name} className="product-img" /> */}
+      <img src={product.photo} alt={product.name} className="product-img" />
 
       <h3 className="product-name">{product.name}</h3>
       <p className="product-category">{product.category}</p>
