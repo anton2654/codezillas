@@ -9,53 +9,48 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
 class UserManager(BaseUserManager):
-    def create_user(self, username, name, password=None):
+    def create_user(self, username, first_name, last_name=None, password=None, **extra_fields):
         if not username:
-            raise ValueError('The Username field must be set')
-        if not name:
-            raise ValueError('The Name field must be set')
-        user = self.model(username=username, name=name)
-        user.set_password(password)  # Hashes the password
+            raise ValueError("The Username field must be set")
+        if not first_name:
+            raise ValueError("The First Name field must be set")
+
+        user = self.model(username=username, first_name=first_name, last_name=last_name, **extra_fields)
+        user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, username, name, password=None):
-        user = self.create_user(username, name, password)
+    def create_superuser(self, username, first_name, last_name=None, password=None):
+        user = self.create_user(username, first_name, last_name, password)
         user.is_superuser = True
         user.is_staff = True
         user.save(using=self._db)
         return user
 
-    def get_by_natural_key(self, username):
-        return self.get(username=username)
-
 class User(AbstractBaseUser, PermissionsMixin):
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=255, unique=True)
     first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255, blank=True, null=True)
     budget = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     calorie_norm = models.IntegerField(blank=True, null=True)
     diet_type = models.CharField(max_length=255, blank=True, null=True)
     allergies = models.TextField(blank=True, null=True)
     food_preferences = models.TextField(blank=True, null=True)
 
-    # Add fields required by PermissionsMixin and AbstractBaseUser
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
     objects = UserManager()
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['name']
+    REQUIRED_FIELDS = ['first_name']
 
     class Meta:
-        managed = False
         db_table = 'User'
 
     def __str__(self):
-        return self.name
-
+        return f"{self.first_name} {self.last_name}".strip()
 
 class Ingredient(models.Model):
     id = models.AutoField(primary_key=True)
