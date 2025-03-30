@@ -1,34 +1,38 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import Callout from "../components/callout/callout.jsx"; // Adjust the path as needed
 
 function Login() {
     const navigate = useNavigate();
+    const { login } = useContext(AuthContext); // Removed setAccessToken
 
     const [values, setValues] = useState({
-        email: "",
+        username: "",
         password: "",
     });
 
     const [errors, setErrors] = useState({});
+    const [generalError, setGeneralError] = useState("");
 
     const handleChange = (e) => {
-        setValues(prev => ({ ...prev, [e.target.name]: e.target.value }));
-        setErrors(prev => ({ ...prev, [e.target.name]: "" }));
+        setValues((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+        setErrors((prev) => ({ ...prev, [e.target.name]: "" }));
+        setGeneralError("");
     };
 
     const validate = () => {
         const newErrors = {};
-        if (!values.email) {
-            newErrors.email = "Уведіть вашу адресу електронної пошти.";
+        if (!values.username) {
+            newErrors.username = "Уведіть логін.";
         }
-
         if (!values.password) {
             newErrors.password = "Уведіть ваш пароль.";
         }
         return newErrors;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const formErrors = validate();
 
@@ -36,7 +40,17 @@ function Login() {
             setErrors(formErrors);
         } else {
             setErrors({});
-            console.log(values);
+            setGeneralError("");
+            try {
+                await login(values);
+                navigate("/");
+            } catch (error) {
+                const errorMessage = typeof error === 'string' ? error :
+                    error?.message ||
+                    "Неправильний логін або пароль.";
+                setGeneralError(errorMessage);
+                console.error("Caught login error in component:", error);
+            }
         }
     };
 
@@ -46,16 +60,22 @@ function Login() {
                 <img src="/logo.png" alt="Логотип" className="auth-logo" />
             </div>
 
+            {generalError && <div className="general-error">
+                                <Callout>{generalError}</Callout>
+                            </div>}
+
             <form onSubmit={handleSubmit}>
                 <div>
                     <input
-                        className={`auth-input ${errors.email ? "input-error" : ""}`}
-                        placeholder="Email"
-                        name="email"
+                        className={`auth-input ${errors.username ? "input-error" : ""}`}
+                        placeholder="Логін"
+                        name="username"
                         onChange={handleChange}
-                        value={values.email}
+                        value={values.username}
+                        aria-invalid={!!errors.username}
+                        aria-describedby={errors.username ? "username-error" : undefined}
                     />
-                    {errors.email && <div className="auth-error">{errors.email}</div>}
+                    {errors.username && <div id="username-error" className="auth-error">{errors.username}</div>}
                 </div>
 
                 <div>
@@ -66,12 +86,16 @@ function Login() {
                         name="password"
                         onChange={handleChange}
                         value={values.password}
+                        aria-invalid={!!errors.password}
+                        aria-describedby={errors.password ? "password-error" : undefined}
                     />
-                    {errors.password && <div className="auth-error">{errors.password}</div>}
+                    {errors.password && <div id="password-error" className="auth-error">{errors.password}</div>}
                 </div>
 
                 <div className="need-help-link">
-                    <a className="need-help-link" href="/help">Забули пароль?</a>
+                    <a className="need-help-link" href="/help">
+                        Забули пароль?
+                    </a>
                 </div>
 
                 <button type="submit" className="primary-auth-button">
@@ -87,7 +111,8 @@ function Login() {
 
             <button
                 className="secondary-auth-button"
-                onClick={() => navigate("/register")}>
+                onClick={() => navigate("/register")}
+            >
                 Створити обліковий запис
             </button>
         </div>

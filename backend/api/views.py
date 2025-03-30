@@ -15,6 +15,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.views import APIView
 from rest_framework_simplejwt.settings import api_settings
+from rest_framework.permissions import IsAuthenticated
 
 # GET	Отримати дані (читання)
 # POST	Створити новий запис
@@ -211,7 +212,7 @@ class CookieTokenObtainPairView(TokenObtainPairView):
             key='access_token',
             value=str(access_token),
             httponly=True,
-            secure=getattr(settings, 'SECURE_COOKIES', False),
+            secure=False, # change to True on prod
             samesite='Lax',
             max_age=api_settings.ACCESS_TOKEN_LIFETIME.total_seconds()
         )
@@ -219,7 +220,7 @@ class CookieTokenObtainPairView(TokenObtainPairView):
             key='refresh_token',
             value=str(refresh),
             httponly=True,
-            secure=getattr(settings, 'SECURE_COOKIES', False),
+            secure=False,
             samesite='Lax',
             max_age=api_settings.REFRESH_TOKEN_LIFETIME.total_seconds()
         )
@@ -241,7 +242,7 @@ class RegisterView(generics.CreateAPIView):
             key='access_token',
             value=str(access_token),
             httponly=True,
-            secure=getattr(settings, 'SECURE_COOKIES', False),
+            secure=False,
             samesite='Lax',
             max_age=api_settings.ACCESS_TOKEN_LIFETIME.total_seconds()
         )
@@ -249,11 +250,24 @@ class RegisterView(generics.CreateAPIView):
             key='refresh_token',
             value=str(refresh),
             httponly=True,
-            secure=getattr(settings, 'SECURE_COOKIES', False),
+            secure=False,
             samesite='Lax',
             max_age=api_settings.REFRESH_TOKEN_LIFETIME.total_seconds()
         )
         return response
+
+class ProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        user_data = {
+            'username': user.username,
+            'first_name': user.first_name,
+            'last_name': user.last_name or '',
+        }
+        return Response(user_data, status=status.HTTP_200_OK)
+
 
 class CookieTokenRefreshView(TokenRefreshView):
     def post(self, request, *args, **kwargs):
@@ -270,7 +284,7 @@ class CookieTokenRefreshView(TokenRefreshView):
             key='access_token',
             value=access_token,
             httponly=True,
-            secure=getattr(settings, 'SECURE_COOKIES', False),
+            secure=False,
             samesite='Lax',
             max_age=api_settings.ACCESS_TOKEN_LIFETIME.total_seconds()
         )

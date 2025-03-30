@@ -1,6 +1,7 @@
 import "./styles/App.css";
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
 
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
@@ -20,21 +21,23 @@ function App() {
 
 
   return (
-    <BrowserRouter>
-      <SearchContext.Provider value={{ searchValue, setSearchValue }}>
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/fridge" element={<Fridge />} />
-          <Route path="/dishes" element={<Dishes />} />
-          <Route path="/generator" element={<Generator />} />
-          <Route path="/create" element={<Create />} />
-          <Route path="*" element={<Error />} />
-        </Routes>
-      </SearchContext.Provider>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <SearchContext.Provider value={{ searchValue, setSearchValue }}>
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/fridge" element={<Fridge />} />
+            <Route path="/dishes" element={<Dishes />} />
+            <Route path="/generator" element={<Generator />} />
+            <Route path="/create" element={<Create />} />
+            <Route path="*" element={<Error />} />
+          </Routes>
+        </SearchContext.Provider>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

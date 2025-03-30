@@ -40,6 +40,22 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5174",  # Альтернативний варіан# Альтернативний варіант
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+CSRF_COOKIE_SECURE = False  # Set to True in production
+SESSION_COOKIE_SECURE = False  # Set to True in production
+
+CORS_ALLOW_HEADERS = [
+    "authorization",
+    "content-type",
+    "x-csrftoken",
+]
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -55,9 +71,16 @@ INSTALLED_APPS = [
     'api',
 ]
 
+CORS_ALLOW_CREDENTIALS = True
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:5173",
+]
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'api.authentication.CookieJWTAuthentication',
     ),
 }
 
@@ -68,17 +91,18 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': False,
-    'UPDATE_LAST_LOGIN': False,
 }
 
 SECURE_COOKIES = not DEBUG
 CSRF_COOKIE_SECURE = SECURE_COOKIES
 SESSION_COOKIE_SECURE = SECURE_COOKIES
-CSRF_COOKIE_HTTPONLY = False
+CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_SAMESITE = "Lax"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

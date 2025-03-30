@@ -1,12 +1,23 @@
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 import Header from "../components/header/Header.jsx";
 import Footer from "../components/footer/Footer.jsx";
+import {AuthContext} from "../context/AuthContext.jsx";
 
 const Profile = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);  // Стан для модального вікна
 
     const openModal = () => setIsModalOpen(true);  // Відкриває модальне вікно
     const closeModal = () => setIsModalOpen(false);  // Закриває модальне вікно
+
+    const { user, loading } = useContext(AuthContext);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (!user) {
+        return <div>You are not logged in.</div>;
+    }
 
     return (
         <div>
@@ -16,7 +27,7 @@ const Profile = () => {
                 <div className="profile-photo"></div>
 
                 <div className="profile-info">
-                    <h3>Name Surname</h3>
+                    <h3>{user.first_name} {user.last_name}</h3>
                     <h4>@id1</h4>
                 </div>
 
