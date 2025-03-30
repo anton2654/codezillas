@@ -12,7 +12,7 @@ const Callout = ({ variant = "error", children }) => {
 
     return (
         <div className={`callout-wrapper callout-${variant}`} role="alert">
-            <Icon className="icon" size={18} strokeWidth={1.5} />
+            <Icon className="callout-icon" size={18} strokeWidth={1.5} />
             <span>{children}</span>
         </div>
     );

@@ -1,7 +1,8 @@
 .callout-wrapper {
     position: static;
     display: flex;
-    width: 500px;
+    width: 100%;
+    max-width: 500px;
     padding: 16px;
     border-radius: 8px;
     font-size: 14px;
@@ -27,6 +28,6 @@
     color: #CC4E00;
 }
 
-.icon {
+.callout-icon {
     flex-shrink: 0;
 }
