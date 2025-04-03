@@ -56,7 +56,6 @@ const ProductCard = ({ product, weight, userId, onRemove }) => {
         <MoveDownRight strokeWidth={1.25} className="go-icon" />
       </div>
 
-      {/* Кнопка видалення */}
       <button
         className="remove-btn"
         onClick={handleRemove}
