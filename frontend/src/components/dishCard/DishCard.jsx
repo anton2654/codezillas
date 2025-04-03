@@ -46,10 +46,10 @@ const DishCard = ({ dish }) => {
   };
 
   useEffect(() => {
-     if (loading) {
-       console.log("Waiting for user to load...");
-       return;
-    }
+    //  if (loading) {
+    //    console.log("Waiting for user to load...");
+    //    return;
+    // }
     
     if (!componentInited.current) {
       componentInited.current = true;
