@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useContext } from "react";
 // import { categoriesDishes } from "./data";
 import axios from "axios";
 
@@ -9,6 +9,7 @@ import DishCard from "../../components/dishCard/DishCard.jsx";
 import SkeletonDishCard from "../../components/dishCard/SkeletonDishCard.jsx";
 import Categories from "../../components/categories/Categories.jsx";
 import Pagination from "../../components/pagination/Pagination.jsx";
+import { AuthContext } from "../../context/AuthContext.jsx";
 
 const Generator = () => {
   //   const [dishesCategories, setDishCategory] = useState([]);
@@ -19,11 +20,13 @@ const Generator = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
+  const { user, loading } = useContext(AuthContext);
+
   const componentInited = useRef(false);
 
   const getDishes = async () => {
     await axios
-      .get("http://127.0.0.1:8000/api/user/1/generator/")
+      .get(`http://127.0.0.1:8000/api/user/${user.id}/generator/`)
       .then((response) => {
         setAvailableMeals(response.data["available meals"]);
         setIngredientAvailableMeals(
@@ -51,6 +54,11 @@ const Generator = () => {
   //   };
 
   useEffect(() => {
+    if (loading) {
+      console.log("Waiting for user to load...");
+      return;
+    }
+
     setIsLoading(true);
 
     if (!componentInited.current) {
@@ -58,7 +66,7 @@ const Generator = () => {
       //   getDishesCategories();
       getDishes();
     }
-  }, []);
+  }, [user, loading]);
 
   const filteredDishes =
     activeCategory === "Все"
@@ -67,8 +75,8 @@ const Generator = () => {
           (product) => product.category === activeCategory
         );
 
-//   const indexOfLastDish = currentPage * itemsPerPage;
-//   const indexOfFirstDish = indexOfLastDish - itemsPerPage;
+  //   const indexOfLastDish = currentPage * itemsPerPage;
+  //   const indexOfFirstDish = indexOfLastDish - itemsPerPage;
   //   const currentDishes = filteredDishes.slice(indexOfFirstDish, indexOfLastDish);
 
   const handleCategoryChange = (category) => {
@@ -89,12 +97,12 @@ const Generator = () => {
           activeCategory={activeCategory}
           onCategoryClick={handleCategoryChange}
         /> */}
-        <h2>Available meals</h2>
+        <h2>Доступні страви</h2>
 
         <div className="product-list">
           {isLoading
             ? skeletons
-            : ingredientAvailableMeals.map((product) => (
+            : availableMeals.map((product) => (
                 <DishCard key={product.id} dish={product} />
               ))}
         </div>

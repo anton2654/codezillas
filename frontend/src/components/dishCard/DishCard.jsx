@@ -1,9 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import "./dishCard.css";
 import { MoveDownRight } from "lucide-react";
-import { X } from "lucide-react";
 import axios from "axios";
-import SkeletonDishCard from "./SkeletonDishCard";
 import ModalWindow from "./ModalWindow";
 
 const DishCard = ({ dish }) => {
@@ -11,13 +9,14 @@ const DishCard = ({ dish }) => {
 
   const openModal = () => {
     setIsModalOpen(true);
-    document.body.style.overflow = "hidden"; // Disable page scroll
+    document.body.style.overflow = "hidden"; 
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    document.body.style.overflow = "auto"; // Enable page scroll
+    document.body.style.overflow = "auto";
   };
+
 
   const [productsForDish, setProductsForDish] = useState([]);
   const [calculatedNutrition, setCalculatedNutrition] = useState([]);
@@ -47,12 +46,22 @@ const DishCard = ({ dish }) => {
   };
 
   useEffect(() => {
+     if (loading) {
+       console.log("Waiting for user to load...");
+       return;
+    }
+    
     if (!componentInited.current) {
       componentInited.current = true;
       getIngredients();
       getСalculate_nutrition();
     }
   }, []);
+
+  useEffect(() => {
+    console.log("isModalOpen changed:", isModalOpen);
+  }, [isModalOpen]);
+
 
   // const [dishId, setDishId] = useState(0);
 

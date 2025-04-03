@@ -60,7 +60,7 @@ class Ingredient(models.Model):
     proteins = models.FloatField()
     fats = models.FloatField()
     carbohydrates = models.FloatField()
-    # photo = models.CharField(max_length=255)
+    photo = models.CharField(max_length=255)
 
 
     class Meta:

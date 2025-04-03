@@ -20,4 +20,3 @@ const SkeletonDishCard = (props) => (
 
 export default SkeletonDishCard;
 
-//SkeletonDishCard

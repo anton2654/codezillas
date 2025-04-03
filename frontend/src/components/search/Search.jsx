@@ -22,7 +22,7 @@ const Search = () => {
         value={searchValue}
         onChange={(event) => setSearchValue(event.target.value)}
         className="input"
-        placeholder="Пошук піци ..."
+        placeholder="Пошук страви ..."
       />
       {searchValue && (
         <svg

@@ -8,11 +8,11 @@
     padding: 15px;
     font-family: Inter, sans-serif;
     margin-bottom: 10px;
-    cursor: pointer;
 }
 
 .product-card:hover {
     background: #efefef;
+    cursor: pointer;
 }
 
 

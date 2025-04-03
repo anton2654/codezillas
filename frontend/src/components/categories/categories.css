@@ -1,9 +1,9 @@
 .tabs {
   display: flex;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   border-radius: 5px;
   gap: 10px;
-  margin-top: -20px;
+  /* margin-top: -20px; */
 }
 
 .tab {

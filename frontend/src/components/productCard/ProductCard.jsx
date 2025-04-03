@@ -1,60 +1,39 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import "../dishCard/dishCard.css";
-import { MoveDownRight } from "lucide-react";
-import { X } from "lucide-react";
+import { MoveDownRight, X } from "lucide-react";
 import axios from "axios";
-import SkeletonDishCard from "../dishCard/SkeletonDishCard";
 import ModalWindow from "../dishCard/ModalWindow";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, weight, userId, onRemove }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isRemoving, setIsRemoving] = useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);
-    document.body.style.overflow = "hidden"; // Disable page scroll
+    document.body.style.overflow = "hidden";
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    document.body.style.overflow = "auto"; // Enable page scroll
+    document.body.style.overflow = "auto";
   };
 
-  //   const [productsForDish, setProductsForDish] = useState([]);
-  //   const [calculatedNutrition, setCalculatedNutrition] = useState([]);
-  //
-  //   const componentInited = useRef(false);
-  //
-  //   const getIngredients = async () => {
-  //     await axios
-  //       .get(`http://127.0.0.1:8000/api/meal/ingredients/${dish.id}/`)
-  //       .then((response) => {
-  //         setProductsForDish(response.data);
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   };
+  const handleRemove = async (event) => {
+    event.stopPropagation(); // Щоб не відкривався модальний вікно при кліку на "X"
+    if (isRemoving) return;
 
-  //   const getСalculate_nutrition = async () => {
-  //     await axios
-  //       .get(`http://127.0.0.1:8000/api/meal/calculate_nutrition/${dish.id}/`)
-  //       .then((response) => {
-  //         setCalculatedNutrition(response.data);
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   };
-
-  //   useEffect(() => {
-  //     if (!componentInited.current) {
-  //       componentInited.current = true;
-  //       getIngredients();
-  //       getСalculate_nutrition();
-  //     }
-  //   }, []);
-
-  // const [dishId, setDishId] = useState(0);
+    setIsRemoving(true);
+    try {
+      await axios.delete(
+        `http://127.0.0.1:8000/api/user/${userId}/fridge/remove/${product.id}`
+      );
+      onRemove(product.id); // Оновити список у Fridge.jsx
+    } catch (error) {
+      console.error("Помилка при видаленні продукту:", error);
+    } finally {
+      setIsRemoving(false);
+    }
+  };
 
   return (
     <div className="product-card" onClick={openModal}>
@@ -62,17 +41,35 @@ const ProductCard = ({ product }) => {
 
       <h3 className="product-name">{product.name}</h3>
       <p className="product-category">{product.category}</p>
-      <p className="product-description">{product.description}</p>
+      <p className="product-category">
+        Калорій на 100 г: <b>{product.calories}</b> ккал
+      </p>
+      <p className="product-category">
+        БЖВ: <b>{product.proteins}</b>б / <b>{product.fats}</b>ж /{" "}
+        <b>{product.carbohydrates}</b>в
+      </p>
+      <p className="product-category">
+        Вага: <b>{weight}</b> г
+      </p>
 
       <div className="icon-wrapper">
         <MoveDownRight strokeWidth={1.25} className="go-icon" />
       </div>
 
+      {/* Кнопка видалення */}
+      <button
+        className="remove-btn"
+        onClick={handleRemove}
+        disabled={isRemoving}
+      >
+        <X strokeWidth={1.5} size={18} />
+      </button>
+
       {isModalOpen && (
         <ModalWindow
-          dish={dish}
-          productsForDish={productsForDish}
-          calculatedNutrition={calculatedNutrition}
+          dish={product}
+          productsForDish={[]} // можна додати продукти для страви
+          calculatedNutrition={[]} // можна додати нутрієнти
           closeModal={closeModal}
         />
       )}
