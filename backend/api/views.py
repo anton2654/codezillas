@@ -388,13 +388,13 @@ def add_ingredient_into_fridge(request,user_id):
             errors.append({'ingredient': ingredient_id, 'error': 'Інгредієнт не знайдено'})
             continue
 
-        fridge, created = UserMenu.objects.update_or_create(
-            user=user,
-            ingredient=ingredient,
-            defaults={'quantity': quantity}
-        )
-
-        added_ingredients.append(FridgeSerializer(fridge).data)
+        fridge_item, created = UserMenu.objects.get_or_create(user=user, ingredient=ingredient, defaults={'quantity': quantity})
+        
+        if not created:
+            fridge_item.quantity += quantity
+            fridge_item.save()
+        
+        added_ingredients.append(FridgeSerializer(fridge_item).data)
 
     response_data = {"added_ingredients": added_ingredients}
     if errors:
