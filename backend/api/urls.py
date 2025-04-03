@@ -6,7 +6,7 @@ from .views import (get_meal,get_ingredient, get_meal_ingredients,get_meals, cal
                     get_ingredient_categories,get_ingredients,create_meal,create_user,add_ingredients_to_meal,
                     get_user, get_fridge,get_fridge_ingredient, get_meal_categories,add_ingredient_into_fridge,
                     remove_ingredient_from_fridge, menu_generator, CookieTokenObtainPairView,
-                    RegisterView, CookieTokenRefreshView, LogoutView, ProfileView)
+                    RegisterView, CookieTokenRefreshView, LogoutView, ProfileView, change_ingredient_quantity)
 from rest_framework.response import Response
 
 class APIRootView(APIView):
@@ -28,8 +28,11 @@ class APIRootView(APIView):
             'ingredients_categories': 'http://127.0.0.1:8000/api/ingredient/categories/',
 
             #USER
-            'get_user': 'http://127.0.0.1:8000/api/user/<user_id>/',
-            'create_user': 'http://127.0.0.1:8000/api/user/create/',
+            'login':'http://127.0.0.1:8000/api/user/login/',
+            'register':'http://127.0.0.1:8000/api/user/register/',
+            'token_refresh':'http://127.0.0.1:8000/api/user/token/refresh/',
+            'logout':'http://127.0.0.1:8000/api/user/logout/',
+            'profile':'http://127.0.0.1:8000/api/user/profile/',
 
 
             #FRIDGE
@@ -37,7 +40,7 @@ class APIRootView(APIView):
             'get_fridge_ingredient':'http://127.0.0.1:8000/api/user/<user_id>/fridge/<ingredient_id>/',
             'add_ingredient_into_fridge':'http://127.0.0.1:8000/api/user/<user_id>/fridge/add/',
             'remove_ingredient_from_fridge':'http://127.0.0.1:8000/api/user/<user_id>/fridge/remove/<ingredient_id>',
-
+            'change_ingredient_quantity':'http://127.0.0.1:8000/api/user/<user_id>/fridge/ingredient/<ingredient_id>/quantity/',
 
             #GENERATOR
             'generator':'http://127.0.0.1:8000/api/user/<user_id>/generator/'
@@ -80,6 +83,7 @@ urlpatterns = [
     path('user/<user_id>/fridge/ingredient/<ingredient_id>/',get_fridge_ingredient ),
     path('user/<user_id>/fridge/add/',add_ingredient_into_fridge),
     path('user/<user_id>/fridge/remove/<ingredient_id>',remove_ingredient_from_fridge),
+    path('user/<user_id>/fridge/ingredient/<ingredient_id>/quantity/',change_ingredient_quantity),
 
     #GENERATOR
     path('user/<user_id>/generator/',menu_generator)
