@@ -61,7 +61,7 @@ class FridgeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserMenu
-        fields = '__all__'
+        fields = ["ingredient", "quantity"]
 
 class ShoppingListSerializer(serializers.ModelSerializer):
     ingredient = IngredientSerializer(read_only=True)

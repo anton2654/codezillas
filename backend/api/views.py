@@ -16,7 +16,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.views import APIView
 from rest_framework_simplejwt.settings import api_settings
 from rest_framework.permissions import IsAuthenticated
-
+from rest_framework_simplejwt.exceptions import InvalidToken
 # GET	Отримати дані (читання)
 # POST	Створити новий запис
 # PUT	Оновити всі поля об'єкта
@@ -418,6 +418,21 @@ def remove_ingredient_from_fridge(request, user_id, ingredient_id):
         return Response({'error': 'Інгредієнт не знайдено у холодильнику'}, status=status.HTTP_404_NOT_FOUND)
    
 
+@api_view(['PATCH'])
+def change_ingredient_quantity(request, user_id, ingredient_id):
+    try:
+        user_menu_item = UserMenu.objects.get(ingredient_id=ingredient_id, user_id=user_id)
+    except UserMenu.DoesNotExist:
+        return Response({"error": "Item not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    new_quantity = request.data.get("quantity")
+    if new_quantity is None:
+        return Response({"error": "Quantity is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+    user_menu_item.quantity = new_quantity
+    user_menu_item.save()
+    
+    return Response(FridgeSerializer(user_menu_item).data, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def menu_generator(request,user_id):

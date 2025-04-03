@@ -148,7 +148,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'Codezillasdb',
         'USER': 'postgres',
-        'PASSWORD': '8888',
+        'PASSWORD': 'luib2006',
         'HOST': 'localhost',
         'PORT': '5432', 
     }
