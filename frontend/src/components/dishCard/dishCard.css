@@ -1,48 +1,103 @@
 .product-card {
-    position: relative;
-    background-color: #F4F4F4;
-    border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    height: 430px;
-    width: 270px;
-    padding: 15px;
-    font-family: Inter, sans-serif;
-    margin-bottom: 10px;
+  position: relative;
+  background-color: #f4f4f4;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  height: 430px;
+  width: 270px;
+  padding: 15px;
+  font-family: Inter, sans-serif;
+  margin-bottom: 10px;
 }
 
 .product-card:hover {
-    background: #efefef;
-    cursor: pointer;
+  background: #efefef;
+  cursor: pointer;
 }
 
-
 .product-name {
-    margin-top: 15px;
-    font-size: 18px;
-    transition: color 0.2s ease;
+  margin-top: 15px;
+  font-size: 18px;
+  transition: color 0.2s ease;
 }
 
 .product-category {
-    font-size: 14px;
-    color: #5D5D5D;
-    margin-bottom: 20px;
+  font-size: 14px;
+  color: #5d5d5d;
+  margin-bottom: 20px;
 }
 
 .product-description {
-    font-size: 14px;
-    color: #272727;
+  font-size: 14px;
+  color: #272727;
 }
 
 .go-icon {
-    transition: color 0.2s ease;
+  transition: color 0.2s ease;
 }
 
 .product-card:hover .go-icon {
-    color: #67C96C;
+  color: #67c96c;
 }
 
 .icon-wrapper {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.remove-btn-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.remove-btn {
+  background-color: #ff8787;
+  border: none;
+  color: white;
+  font-size: 18px;
+  width: 32px;
+  height: 32px;
+  border-radius: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: -10px;
+}
+
+.remove-btn:hover {
+  background-color: #cc0000;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.2s ease-in-out;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  text-align: center;
+  z-index: 1001;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-around;
+  /* flex-direction: column; */
+  gap: 8px; /* або скільки хочеш */
+  /* margin-top: 20px; */
 }

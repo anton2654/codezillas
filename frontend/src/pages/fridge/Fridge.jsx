@@ -8,9 +8,9 @@ import SkeletonDishCard from "../../components/dishCard/SkeletonDishCard.jsx";
 import ProductCard from "../../components/productCard/ProductCard.jsx";
 import Pagination from "../../components/pagination/Pagination.jsx";
 import { AuthContext } from "../../context/AuthContext.jsx";
+import AddIngredientButton from "../../components/addIngredientButton/AddIngredientButton.jsx";
 
 import "../dishes/dishes.css";
-import { CaseLower } from "lucide-react";
 
 const Fridge = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -24,6 +24,18 @@ const Fridge = () => {
   const itemsPerPage = 10;
 
   const { user, loading } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (loading) return;
+
+    setIsLoading(true);
+
+    if (!componentInited.current) {
+      componentInited.current = true;
+      getProductCategories();
+      getProductsId();
+    }
+  }, [user, loading]);
 
   const getProductCategories = async () => {
     try {
@@ -43,54 +55,29 @@ const Fridge = () => {
         `http://127.0.0.1:8000/api/user/${user.id}/fridge/`
       );
       const products = response.data.map((item) => item.ingredient);
-      const weigths_of_products = response.data.map((item) => item.quantity);
+      const weights_of_products = response.data.map((item) => item.quantity);
       setItems(products);
-      setWeights(weigths_of_products);
-      console.log(weigths_of_products);
-      console.log(products); // Масив тільки з `ingredient`
+      setWeights(weights_of_products);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(() => {
-    // console.log("User state:", user, "Loading state:", loading);
-
-    if (loading) {
-      console.log("Waiting for user to load...");
-      return;
-    }
-
-    setIsLoading(true);
-
-    if (!componentInited.current) {
-      componentInited.current = true;
-      getProductCategories();
-      getProductsId();
-    }
-  }, [user, loading]); // Додаємо `loading`
-
   const handleRemoveProduct = (productId) => {
     setItems((prevItems) => prevItems.filter((item) => item.id !== productId));
   };
 
-  
   const filteredProducts =
     activeCategory === "Все"
       ? items
       : items.filter((product) => product.category === activeCategory);
-  // console.log(filteredProducts);
-  // Визначення продуктів для поточної сторінки
+
   const startIndex = (currentPage - 1) * itemsPerPage;
   const displayedProducts = filteredProducts.slice(
     startIndex,
     startIndex + itemsPerPage
   );
-
-  const skeletons = [...new Array(8)].map((_, index) => (
-    <SkeletonDishCard key={index} />
-  ));
 
   return (
     <div>
@@ -102,14 +89,19 @@ const Fridge = () => {
             activeCategory={activeCategory}
             onCategoryClick={(category) => {
               setActiveCategory(category);
-              setCurrentPage(1); // Скидаємо пагінацію при зміні категорії
+              setCurrentPage(1);
             }}
+          />
+          <AddIngredientButton
+            userId={user?.id}
           />
         </div>
 
         <div className="product-list">
           {isLoading
-            ? skeletons
+            ? [...new Array(8)].map((_, index) => (
+                <SkeletonDishCard key={index} />
+              ))
             : displayedProducts.map((product) => (
                 <ProductCard
                   key={product.id}
@@ -121,7 +113,6 @@ const Fridge = () => {
               ))}
         </div>
 
-        {/* Відображаємо пагінацію тільки якщо є більше 1 сторінки */}
         {filteredProducts.length > itemsPerPage && (
           <div className="button-container">
             <Pagination
@@ -131,6 +122,7 @@ const Fridge = () => {
           </div>
         )}
       </div>
+
       <Footer />
     </div>
   );

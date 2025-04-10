@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from .models import Recipe, Ingredient,RecipeIngredient,UserMenu,User
 import json
+from decimal import Decimal
 from .serializers import (MealSerializer,IngredientSerializer,MealIngredientSerializer,
                           UserSerializer,ShoppingListSerializer,FridgeSerializer,
                           MyTokenObtainPairSerializer, RegisterSerializer)
@@ -391,7 +392,7 @@ def add_ingredient_into_fridge(request,user_id):
         fridge_item, created = UserMenu.objects.get_or_create(user=user, ingredient=ingredient, defaults={'quantity': quantity})
         
         if not created:
-            fridge_item.quantity += quantity
+            fridge_item.quantity += Decimal(str(quantity))
             fridge_item.save()
         
         added_ingredients.append(FridgeSerializer(fridge_item).data)

@@ -1,7 +1,5 @@
 import { useRef, useEffect, useState, useContext } from "react";
-// import { categoriesDishes } from "./data";
 import axios from "axios";
-
 import "../dishes/dishes.css";
 import Header from "../../components/header/Header.jsx";
 import Footer from "../../components/footer/Footer.jsx";
