@@ -6,6 +6,7 @@ import { Search } from "lucide-react";
 import ScrollToTop from "../../components/scrollUp/scrollButt.jsx";
 import DishCard from "../../components/dishCard/DishCard.jsx";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const MainPage = () => {
   const [items, setItems] = useState([]);
@@ -54,7 +55,9 @@ const MainPage = () => {
               вас. Економте час, гроші та насолоджуйтеся приготуванням!
             </p>
           </div>
-          <button>Спробувати!</button>
+          <Link to="/generator">
+            <button>Спробувати!</button>
+          </Link>
         </div>
 
         <div className="search-container">
