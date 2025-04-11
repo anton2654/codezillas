@@ -1,13 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/header/Header.jsx";
 import Footer from "../../components/footer/Footer.jsx";
 import "./mainPage.css";
 import { Search } from "lucide-react";
 import ScrollToTop from "../../components/scrollUp/scrollButt.jsx";
-import { productsData } from "./data";
 import DishCard from "../../components/dishCard/DishCard.jsx";
+import axios from "axios";
 
 const MainPage = () => {
+  const [items, setItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const getDishes = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/meal/all/");
+        setItems(response.data);
+      } catch (error) {
+        console.error("Помилка при завантаженні страв:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    getDishes();
+  }, []);
+
+  const renderSection = (title, items) => (
+    <div className="section">
+      <h2>{title}</h2>
+      <div className="product-list">
+        {isLoading ? (
+          <p>Завантаження...</p>
+        ) : (
+          items.slice(0, 5).map((product) => (
+            <DishCard key={product.id} dish={product} />
+          ))
+        )}
+      </div>
+      <button>Більше</button>
+    </div>
+  );
+
   return (
     <div>
       <Header />
@@ -34,35 +68,9 @@ const MainPage = () => {
           </div>
         </div>
 
-        <div className="section">
-          <h2>Популярне</h2>
-          <div className="product-list">
-            {productsData.slice(0, 5).map((product) => (
-              <DishCard key={product.id} dish={product} />
-            ))}
-          </div>
-          <button>Більше</button>
-        </div>
-
-        <div className="section">
-          <h2>Вам може сподобатись</h2>
-          <div className="product-list">
-            {productsData.slice(0, 5).map((product) => (
-              <DishCard key={product.id} dish={product} />
-            ))}
-          </div>
-          <button>Більше</button>
-        </div>
-
-        <div className="section">
-          <h2>Вибір редакції</h2>
-          <div className="product-list">
-            {productsData.slice(0, 5).map((product) => (
-              <DishCard key={product.id} dish={product} />
-            ))}
-          </div>
-          <button>Більше</button>
-        </div>
+        {renderSection("Популярне", items)}
+        {renderSection("Вам може сподобатись", items)}
+        {renderSection("Вибір редакції", items)}
       </div>
 
       <Footer />
