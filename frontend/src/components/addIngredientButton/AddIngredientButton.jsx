@@ -77,13 +77,13 @@ const AddIngredientButton = ({ userId }) => {
   return (
     <>
       <button className="add-dish-button" onClick={() => setIsModalOpen(true)}>
-        <PlusCircle size={24} /> Додати продукт
+        <PlusCircle size={20} /> Додати продукт
       </button>
 
       {isModalOpen && (
         <div className="modal">
-          <div className="modal-content">
-            <h3>Додати Продукт</h3>
+          <div className="modal-content-add">
+            <h3>Додати продукт</h3>
             <input
               list="ingredients-list"
               placeholder="Назва продукту"
@@ -103,15 +103,15 @@ const AddIngredientButton = ({ userId }) => {
               value={newDishWeight}
               onChange={(e) => setNewDishWeight(e.target.value)}
             />
-            <div className="buttons-container">
-              <button className="add-btn" onClick={handleAddDish}>
-                Додати
-              </button>
+            <div className="modal-buttons">
               <button
-                className="close-modal"
+                className="cancel-btn"
                 onClick={() => setIsModalOpen(false)}
               >
                 Закрити
+              </button>
+              <button className="add-btn" onClick={handleAddDish}>
+                Додати
               </button>
             </div>
           </div>

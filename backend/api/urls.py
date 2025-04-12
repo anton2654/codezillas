@@ -20,7 +20,7 @@ class APIRootView(APIView):
             'calculate_nutrition':'http://127.0.0.1:8000/api/meal/calculate_nutrition/<meal_id>/',
             'create_meal':'http://127.0.0.1:8000/api/meal/create/',
             'add_ingredients_to_meal': 'http://127.0.0.1:8000/api/meal/add_ingredients/<meal_id>/',
-            'get_meal_categories':'http://127.0.0.1:8000/api/meal/categories',
+            'get_meal_categories':'http://127.0.0.1:8000/api/meal/categories/',
 
             #INGREDIENT
             'ingredient': 'http://127.0.0.1:8000/api/ingredient/<ingredient_id>/',

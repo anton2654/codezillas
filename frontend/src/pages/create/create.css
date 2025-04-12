@@ -60,6 +60,24 @@
     background: #00A355;
 }
 
+.add-button {
+    background: #11B05E;
+    font-size: 14px;
+    height: 40px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0 16px;
+    margin-left: auto;
+    display: block;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+}
+
+.add-button:hover {
+    background: #00A355;
+}
+
 .clear-button {
     background: #E7E8EC;
     color: #62636C;
@@ -136,6 +154,29 @@
     flex-direction: column;
 }
 
+.input-group-ingredients {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group-ingredients label {
+    color: #1E1F24;
+    font-size: 14px;
+    font-family: Inter, sans-serif;
+}
+
+.add-ingredients {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.weight-input {
+    width: 50px;
+}
+
+
 .input-group label {
     color: #1E1F24;
     font-size: 14px;
@@ -157,6 +198,24 @@
 }
 
 .input-group input:focus {
+    border: 1px solid #67C96C;
+    box-shadow: 0 0 2px rgba(103, 201, 108, 0.4);
+    outline: none;
+}
+
+.input-group-ingredients input {
+    height: 40px;
+    margin-bottom: 20px;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    color: #1E1F24;
+    font-size: 14px;
+    font-family: Inter, sans-serif;
+    font-weight: lighter;
+}
+
+.input-group-ingredients input:focus {
     border: 1px solid #67C96C;
     box-shadow: 0 0 2px rgba(103, 201, 108, 0.4);
     outline: none;
@@ -208,4 +267,76 @@
     margin: 0 8px 0 0;
     padding: 0;
     cursor: pointer;
+}
+
+.weight-input {
+    width: 100px;
+}
+
+.ing-input {
+    width: 300px;
+}
+
+.added-ingredients {
+    list-style-type: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.ingredient-box {
+    position: relative;
+    background: #f1f1f1;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: Inter, sans-serif;
+    gap: 8px;
+}
+
+.ingredient-box span {
+    margin-left: 25px;
+}
+
+.delete-icon {
+    position: absolute;
+    cursor: pointer;
+    color: #888;
+    transition: color 0.2s ease;
+}
+
+.delete-icon:hover {
+    color: #4a4a4a;
+}
+
+.input-group select {
+    width: 550px;
+    height: 40px;
+    margin-bottom: 20px;
+    margin-top: 8px;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    color: #1E1F24;
+    font-size: 14px;
+    font-family: Inter, sans-serif;
+    font-weight: lighter;
+    background-color: white;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='20,50 70,100 120,50' stroke='%23999' stroke-width='15' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 16px;
+    cursor: pointer;
+}
+
+.input-group select:focus {
+    border: 1px solid #67C96C;
+    box-shadow: 0 0 2px rgba(103, 201, 108, 0.4);
+    outline: none;
 }

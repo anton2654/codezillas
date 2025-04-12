@@ -75,18 +75,18 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background-color: #4caf50;
+  background-color: #11b05e;
   color: white;
   border: none;
-  padding: 10px 16px;
-  font-size: 16px;
+  padding: 10px 12px;
+  font-size: 14px;
   cursor: pointer;
-  border-radius: 6px;
-  transition: background-color 0.3s;
+  border-radius: 5px;
+  transition: background-color 0.2s;
 }
 
 .add-dish-button:hover {
-  background-color: #388e3c;
+  background-color: #00a355;
 }
 
 .modal {
@@ -97,15 +97,22 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
-  align-items: center;
-  justify-content: center;
+  z-index: 1000;
 }
 
-.modal-content {
+.modal-content-add {
+  font-family: Inter, sans-serif;
+  cursor: auto;
   background: white;
-  padding: 20px;
+  padding: 24px;
   border-radius: 8px;
-  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal h3 {
+  font-size: 18px;
+  color: black;
+  padding-bottom: 10px;
 }
 
 .modal input {
@@ -117,34 +124,58 @@
   border-radius: 4px;
 }
 
-.close-modal {
-  background-color: #ff8787;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  margin-top: 10px;
-  cursor: pointer;
-  border-radius: 6px;
-  transition: background-color 0.2s ease;
+.modal-content-add input {
+  height: 40px;
+  width: 260px;
+  margin-bottom: 16px;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  color: #6E6E6E;
+  font-size: 14px;
+  font-family: Inter, sans-serif;
+  font-weight: lighter;
 }
 
-.close-modal:hover {
-  background-color: #c9302c;
-  color: whitesmoke;
+.modal-content-add input:focus {
+  border: 1px solid #11B05E;
+  box-shadow: 0 0 2px rgba(103, 201, 108, 0.4);
+  outline: none;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 36px;
+  gap: 8px;
 }
 
 .add-btn {
-  background-color: #00dd519c;
-  color: WHITE;
+  background: #11b05e;
+  color: white;
   border: none;
-  padding: 8px 12px;
-  margin-top: 10px;
+  padding: 10px 16px;
+  border-radius: 5px;
+  font-size: 14px;
   cursor: pointer;
-  border-radius: 6px;
   transition: background-color 0.2s ease;
 }
 
 .add-btn:hover {
-  background-color: #4caf50;
-  color: whitesmoke;
+  background: #00a355;
+}
+
+.cancel-btn {
+  background: #EFF0F3;
+  color: #62636C;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.cancel-btn:hover {
+  background: #E7E8EC;
 }
