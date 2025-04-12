@@ -1,43 +1,46 @@
-.root {
+.root-1 {
   position: relative;
-  /* left: -120px; */
-  /* margin-top: -40px; */
+  display: flex;
+  align-items: center;
+  width: 500px;
+  background-color: #0000330f;
+  border-radius: 4px;
 }
 
 .input {
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  padding: 10px 20px;
-  width: 400px;
-  border-radius: 10px;
-  font-size: 16px;
-  padding-left: 40px;
-  transition: all 0.15s ease-in-out;
+  flex: 1;
+  padding: 14px 12px;
+  font-size: 14px;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  color: #858585;
 }
 
-.input:focus {
-  border: 0.5px solid rgba(0, 0, 0, 0.2);
-  /* width: 450px; */
+.input::placeholder {
+  color: #666666;
+  opacity: 0.8;
 }
 
 .icon {
-  width: 22px;
-  height: 22px;
-  opacity: 0.3;
-  position: absolute;
-  left: 12px;
-  top: 9px;
+  width: 20px;
+  height: 20px;
+  margin-left: 12px;
+  color: #666666;
+  flex-shrink: 0;
 }
 
 .clearIcon {
-  width: 22px;
-  height: 22px;
-  opacity: 0.3;
-  position: absolute;
-  right: 15px;
-  top: 12px;
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  color: #666666;
   cursor: pointer;
+  flex-shrink: 0;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .clearIcon:hover {
-  opacity: 0.8;
+  background-color: #E0E1E6;
 }
