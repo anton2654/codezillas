@@ -2,6 +2,7 @@ import "./styles/App.css";
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
+import PrivateRoute from "./components/privateRoute/PrivateRoute.jsx";
 
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
@@ -28,11 +29,11 @@ function App() {
             <Route path="/" element={<MainPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/fridge" element={<Fridge />} />
+            <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+            <Route path="/fridge" element={<PrivateRoute><Fridge /></PrivateRoute>} />
             <Route path="/dishes" element={<Dishes />} />
-            <Route path="/generator" element={<Generator />} />
-            <Route path="/create" element={<Create />} />
+            <Route path="/generator" element={<PrivateRoute><Generator /></PrivateRoute>} />
+            <Route path="/create" element={<PrivateRoute><Create /></PrivateRoute>} />
             <Route path="*" element={<Error />} />
           </Routes>
         </SearchContext.Provider>
