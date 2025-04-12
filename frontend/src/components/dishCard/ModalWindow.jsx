@@ -32,11 +32,11 @@ const ModalWindow = ({
           <div className="recipe-section">
             <h3 className="section-title">Харчова цінність</h3>
             <ul className="nutrition-info-list">
-              <li><span>Загальна вага:</span> {productsForDish.reduce((sum, item) => sum + item.quantity, 0)} г</li>
-              <li><span>Калорії:</span> {calculatedNutrition.calories}</li>
-              <li><span>Білки:</span> {calculatedNutrition.proteins}</li>
-              <li><span>Жири:</span> {calculatedNutrition.fats}</li>
-              <li><span>Вуглеводи:</span> {calculatedNutrition.carbohydrates}</li>
+              <li><span>Загальна вага</span> {productsForDish.reduce((sum, item) => sum + item.quantity, 0)} г</li>
+              <li><span>Калорії</span> {calculatedNutrition.calories}</li>
+              <li><span>Білки</span> {calculatedNutrition.proteins}</li>
+              <li><span>Жири</span> {calculatedNutrition.fats}</li>
+              <li><span>Вуглеводи</span> {calculatedNutrition.carbohydrates}</li>
             </ul>
           </div>
 

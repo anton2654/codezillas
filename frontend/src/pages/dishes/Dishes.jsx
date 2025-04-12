@@ -11,6 +11,8 @@ import Categories from "../../components/categories/Categories.jsx";
 import Pagination from "../../components/pagination/Pagination.jsx";
 import Search from "../../components/search/Search.jsx";
 import { SearchContext } from "../../App";
+import {PlusCircle} from "lucide-react";
+import {useNavigate} from "react-router-dom";
 
 const Dishes = () => {
   const { searchValue } = useContext(SearchContext);
@@ -87,18 +89,25 @@ const Dishes = () => {
     <SkeletonDishCard key={index} />
   ));
 
+  const nav = useNavigate()
+
   return (
     <div className="container">
       <Header />
       <div className="dishes-wrapper">
+
+        <div className="search-container-1">
+          <Search />
+        </div>
         <div className="dishes-wrapper-top">
           <Categories
             categories={dishesCategories}
             activeCategory={activeCategory}
             onCategoryClick={handleCategoryChange}
           />
-
-          <Search />
+          <button className="add-dish-button" onClick={() => nav('/create')}>
+            <PlusCircle size={20} /> Додати страву
+          </button>
         </div>
 
         <div className="product-list">

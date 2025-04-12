@@ -4,6 +4,7 @@ import "./create.css";
 import { ArrowLeft, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import {useNavigate, useNavigation} from "react-router-dom";
 
 const Create = () => {
     const [mealName, setMealName] = useState("");
@@ -112,6 +113,8 @@ const Create = () => {
         }
     };
 
+    const nav = useNavigate();
+
     return (
         <div>
             <Header />
@@ -119,7 +122,7 @@ const Create = () => {
                 <div className="create-container">
                     <div className="create-header">
                         <div className="create-header-left">
-                            <ArrowLeft className="go-back-icon" />
+                            <ArrowLeft className="go-back-icon" onClick={() => nav(-1)}/>
                             <h2>Додавання рецепту</h2>
                         </div>
                         <div className="create-header-right">

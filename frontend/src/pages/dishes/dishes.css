@@ -124,6 +124,12 @@
   border-radius: 4px;
 }
 
+.search-container-1 {
+  width: 100%;
+  max-width: 400px;
+  padding-bottom: 8px;
+}
+
 .modal-content-add input {
   height: 40px;
   width: 260px;
