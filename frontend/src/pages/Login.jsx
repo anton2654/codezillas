@@ -45,51 +45,78 @@ function Login() {
                 await login(values);
                 navigate("/");
             } catch (error) {
-                const errorMessage = typeof error === 'string' ? error :
-                    error?.message ||
-                    "Неправильний логін або пароль.";
+                const errorMessage =
+                    typeof error === "string"
+                        ? error
+                        : error?.message || "Неправильний логін або пароль.";
                 setGeneralError(errorMessage);
                 console.error("Caught login error in component:", error);
             }
         }
     };
 
+    const handleLogoClick = () => {
+        navigate("/");
+    };
+
     return (
         <div className="auth-form">
             <div className="logo-container">
-                <img src="/logo.png" alt="Логотип" className="auth-logo" />
+                <img
+                    src="/logo.png"
+                    alt="Логотип"
+                    className="auth-logo"
+                    onClick={handleLogoClick}
+                    style={{ cursor: "pointer" }}
+                />
             </div>
 
-            {generalError && <div className="general-error">
-                                <Callout>{generalError}</Callout>
-                            </div>}
+            {generalError && (
+                <div className="general-error">
+                    <Callout>{generalError}</Callout>
+                </div>
+            )}
 
             <form onSubmit={handleSubmit}>
                 <div>
                     <input
-                        className={`auth-input ${errors.username ? "input-error" : ""}`}
+                        className={`auth-input ${errors.username ? "input-error" : ""
+                            }`}
                         placeholder="Логін"
                         name="username"
                         onChange={handleChange}
                         value={values.username}
                         aria-invalid={!!errors.username}
-                        aria-describedby={errors.username ? "username-error" : undefined}
+                        aria-describedby={
+                            errors.username ? "username-error" : undefined
+                        }
                     />
-                    {errors.username && <div id="username-error" className="auth-error">{errors.username}</div>}
+                    {errors.username && (
+                        <div id="username-error" className="auth-error">
+                            {errors.username}
+                        </div>
+                    )}
                 </div>
 
                 <div>
                     <input
-                        className={`auth-input ${errors.password ? "input-error" : ""}`}
+                        className={`auth-input ${errors.password ? "input-error" : ""
+                            }`}
                         placeholder="Пароль"
                         type="password"
                         name="password"
                         onChange={handleChange}
                         value={values.password}
                         aria-invalid={!!errors.password}
-                        aria-describedby={errors.password ? "password-error" : undefined}
+                        aria-describedby={
+                            errors.password ? "password-error" : undefined
+                        }
                     />
-                    {errors.password && <div id="password-error" className="auth-error">{errors.password}</div>}
+                    {errors.password && (
+                        <div id="password-error" className="auth-error">
+                            {errors.password}
+                        </div>
+                    )}
                 </div>
 
                 <div className="need-help-link">

@@ -76,10 +76,20 @@ const Register = () => {
         }
     };
 
+    const handleLogoClick = () => {
+        navigate("/");
+    };
+
     return (
         <div className="auth-form">
             <div className="logo-container">
-                <img src="/logo.png" alt="Логотип" className="auth-logo" />
+                <img
+                    src="/logo.png"
+                    alt="Логотип"
+                    className="auth-logo"
+                    onClick={handleLogoClick}
+                    style={{ cursor: "pointer" }}
+                />
             </div>
 
             {generalError && (
