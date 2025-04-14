@@ -47,10 +47,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['first_name']
 
     class Meta:
+        managed = False
         db_table = 'User'
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}".strip()
+        return f"{self.first_name} {self.last_name or ''}".strip()
 
 class Ingredient(models.Model):
     id = models.AutoField(primary_key=True)
@@ -147,3 +148,51 @@ class UserMenu(models.Model):
 
     def __str__(self):
         return f"{self.user.name if self.user else 'Unknown'} – {self.ingredient.name} {self.quantity}"
+    
+
+
+class Recipe_User(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+    calories = models.IntegerField(blank=True, null=True)
+    proteins = models.FloatField(blank=True, null=True)
+    fats = models.FloatField(blank=True, null=True)
+    carbohydrates = models.FloatField(blank=True, null=True)
+    photo = models.CharField(max_length=255, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    CATEGORY_CHOICES = [
+        ('Сніданки', 'Сніданки'),
+        ('Обіди', 'Обіди'),
+        ('Вечері', 'Вечері'),
+        ('Десерти', 'Десерти'),
+        ('Салати', 'Салати'),
+        ('Гарніри', 'Гарніри'),
+        ('Закуски', 'Закуски'),
+        ('Снеки', 'Снеки'),
+        ('Пісні страви', 'Пісні страви'),
+        ('Перші страви', 'Перші страви'),
+        ('Другі страви', 'Другі страви'),
+    ]
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
+    class Meta:
+        managed = False
+        db_table = 'recipe_user'
+
+    def __str__(self):
+        return self.name
+
+
+class RecipeIngredientUser(models.Model):
+    recipe_user = models.OneToOneField(Recipe_User, on_delete=models.CASCADE, primary_key=True)  # The composite primary key (recipe_id, ingredient_id) found, that is not supported. The first column is selected.
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+    quantity = models.FloatField()
+
+    def __str__(self):
+        return f"{self.recipe.name} -> {self.ingredient.name}"
+
+    class Meta:
+        managed = False
+        db_table = 'recipe_user_ingredient'
+        unique_together = (('recipe_user', 'ingredient'),)
+

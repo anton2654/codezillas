@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.hashers import make_password
-from .models import User, Recipe, Ingredient, RecipeIngredient, ShoppingList,UserMenu
+from .models import User, Recipe, Ingredient, RecipeIngredient, ShoppingList,UserMenu, RecipeIngredientUser,Recipe_User
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -69,4 +69,16 @@ class ShoppingListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ShoppingList
+        fields = '__all__'
+
+class Recipe_User_IngredientSerializer(serializers.ModelSerializer):
+    ingredient = IngredientSerializer(read_only=True) 
+
+    class Meta:
+        model = RecipeIngredientUser
+        fields = '__all__'
+
+class RecipeUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Recipe_User
         fields = '__all__'

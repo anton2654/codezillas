@@ -6,7 +6,8 @@ from .views import (get_meal,get_ingredient, get_meal_ingredients,get_meals, cal
                     get_ingredient_categories,get_ingredients,create_meal,create_user,add_ingredients_to_meal,
                     get_user, get_fridge,get_fridge_ingredient, get_meal_categories,add_ingredient_into_fridge,
                     remove_ingredient_from_fridge, menu_generator, CookieTokenObtainPairView,
-                    RegisterView, CookieTokenRefreshView, LogoutView, ProfileView, change_ingredient_quantity)
+                    RegisterView, CookieTokenRefreshView, LogoutView, ProfileView, change_ingredient_quantity,
+                    get_user_meals,create_user_meal,add_ingredients_to_user_meal,get_user_meal_ingredients)
 from rest_framework.response import Response
 
 class APIRootView(APIView):
@@ -18,8 +19,8 @@ class APIRootView(APIView):
             'all_meals':'http://127.0.0.1:8000/api/meal/all/',
             'meal_ingredients': 'http://127.0.0.1:8000/api/meal/ingredients/<meal_id>/',  
             'calculate_nutrition':'http://127.0.0.1:8000/api/meal/calculate_nutrition/<meal_id>/',
-            'create_meal':'http://127.0.0.1:8000/api/meal/create/',
-            'add_ingredients_to_meal': 'http://127.0.0.1:8000/api/meal/add_ingredients/<meal_id>/',
+            #'create_meal':'http://127.0.0.1:8000/api/meal/create/',
+            #'add_ingredients_to_meal': 'http://127.0.0.1:8000/api/meal/add_ingredients/<meal_id>/',
             'get_meal_categories':'http://127.0.0.1:8000/api/meal/categories/',
 
             #INGREDIENT
@@ -34,7 +35,11 @@ class APIRootView(APIView):
             'logout':'http://127.0.0.1:8000/api/user/logout/',
             'profile':'http://127.0.0.1:8000/api/user/profile/',
 
-
+            #USER RECIPES
+            'all_user_meals':'http://127.0.0.1:8000/api/<user_id>/meal/all/',
+            'create_user_meal':'http://127.0.0.1:8000/api/<user_id>/meal/create/',
+            'add_ingredients_to_meal': 'http://127.0.0.1:8000/api/<user_id>/meal/add_ingredients/<meal_id>/',
+            'get_user_meal_ingredients': 'http://127.0.0.1:8000/api/<user_id>/meal/ingredients/<int:meal_id>/',
             #FRIDGE
             'get_fridge':'http://127.0.0.1:8000/api/user/<user_id>/fridge/',
             'get_fridge_ingredient':'http://127.0.0.1:8000/api/user/<user_id>/fridge/<ingredient_id>/',
@@ -77,6 +82,11 @@ urlpatterns = [
     path('user/logout/', LogoutView.as_view(), name='logout'),
     path('user/profile/', ProfileView.as_view(), name='profile'),
 
+    #USER RECIPES
+    path('<user_id>/meal/all/',get_user_meals),
+    path('<user_id>/meal/create/',create_user_meal),
+    path('<user_id>/meal/add_ingredients/<int:meal_id>/',add_ingredients_to_user_meal),
+    path('<user_id>/meal/ingredients/<int:meal_id>/', get_user_meal_ingredients),
 
     #FRIDGE
     path('user/<user_id>/fridge/',get_fridge),

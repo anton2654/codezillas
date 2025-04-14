@@ -3,12 +3,12 @@ from django.conf import settings
 from rest_framework import viewsets, generics
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
-from .models import Recipe, Ingredient,RecipeIngredient,UserMenu,User
+from .models import Recipe, Ingredient,RecipeIngredient,UserMenu,User,Recipe_User,RecipeIngredientUser
 import json
 from decimal import Decimal
 from .serializers import (MealSerializer,IngredientSerializer,MealIngredientSerializer,
                           UserSerializer,ShoppingListSerializer,FridgeSerializer,
-                          MyTokenObtainPairSerializer, RegisterSerializer)
+                          MyTokenObtainPairSerializer, RegisterSerializer, Recipe_User_IngredientSerializer,RecipeUserSerializer)
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -42,7 +42,7 @@ def get_meal(request, meal_id):
         serializer = MealSerializer(meal)
         return Response(serializer.data)
     except RecipeIngredient.DoesNotExist:
-        return Response({'error': 'Рецепт не знайдено'}, status=404)
+        return Response({'error': 'Рецепт не знайдено'}, status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['GET'])
 def get_meal_ingredients(request,meal_id):
@@ -53,14 +53,14 @@ def get_meal_ingredients(request,meal_id):
         return Response(serializer.data)
     
     except RecipeIngredient.DoesNotExist:
-        return Response({'error': 'Рецепт не знайдено'}, status=404)    
+        return Response({'error': 'Рецепт не знайдено'}, status=status.HTTP_404_NOT_FOUND)    
 
 @api_view(['GET'])
 def get_meals(request):
     try:
         meals = Recipe.objects.all()
         if not meals.exists():
-            return Response({'error': 'Рецепти не знайдено'}, status=404)
+            return Response({'error': 'Рецепти не знайдено'}, status=status.HTTP_404_NOT_FOUND)
             
         serializer = MealSerializer(meals, many=True)
         return Response(serializer.data)
@@ -74,8 +74,8 @@ def create_meal(request):
     serializer = MealSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save() 
-        return Response(serializer.data, status=201)
-    return Response(serializer.errors, status=400)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
 def get_meal_categories(request):
@@ -134,13 +134,13 @@ def calculate_total_nutrition(request, meal_id):
     try:
         meal_ingredients = RecipeIngredient.objects.filter(recipe=meal_id)
         if not meal_ingredients.exists():
-            return Response({'error': 'Рецепт не знайдено'}, status=404)
+            return Response({'error': 'Рецепт не знайдено'}, status=status.HTTP_404_NOT_FOUND)
         
         serializer = MealIngredientSerializer(meal_ingredients, many=True)
         ingredients = serializer.data
 
         if not ingredients:
-            return Response({"error": "Не знайдено інгредієнтів до рецепта"}, status=404)
+            return Response({"error": "Не знайдено інгредієнтів до рецепта"}, status=status.HTTP_404_NOT_FOUND)
 
         total_calories = 0
         total_fat = 0
@@ -178,7 +178,7 @@ def get_ingredient(request, ingredient_id):
         serializer = IngredientSerializer(ingredient)
         return Response(serializer.data)
     except Ingredient.DoesNotExist:
-        return Response({'error': 'Продукт не знайдено'}, status=404)
+        return Response({'error': 'Продукт не знайдено'}, status=status.HTTP_404_NOT_FOUND)
 
 
 @api_view(['GET'])
@@ -186,7 +186,7 @@ def get_ingredients(request):
     try:
         ingredients=Ingredient.objects.all()
         if not ingredients.exists():
-            return Response({'error': 'Рецепти не знайдено'}, status=404)
+            return Response({'error': 'Інгредієнтів не знайдено'}, status=status.HTTP_404_NOT_FOUND)
         serializer=IngredientSerializer(ingredients,many=True)
         return Response(serializer.data)
     
@@ -299,7 +299,7 @@ def get_user(request,user_id):
         serializer=UserSerializer(user)
         return Response(serializer.data)
     except User.DoesNotExist:
-        return Response({'error': 'Користувача не знайдено'}, status=404)
+        return Response({'error': 'Користувача не знайдено'}, status=status.HTTP_404_NOT_FOUND)
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
@@ -322,6 +322,112 @@ def create_user(request):
 # @api_view(['PATCH'])
 # def change_characteristics(request):
 
+
+#================================================================
+#USER_RECIPES
+
+# @api_view(['GET'])
+# def get_user_meal_ingredients(request,meal_id):
+#     try:
+#         meal_ingredients = RecipeIngredientUser.objects.filter(recipe=meal_id)
+#         serializer = Recipe_User_IngredientSerializer(meal_ingredients, many=True)
+        
+#         return Response(serializer.data)
+    
+#     except RecipeIngredientUser.DoesNotExist:
+#         return Response({'error': 'Рецепт не знайдено'}, status=status.HTTP_404_NOT_FOUND)    
+
+@api_view(['GET'])
+def get_user_meals(request,user_id):
+    try:
+        try:
+            user=User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            return Response({'error': 'Користувача не знайдено'}, status=status.HTTP_404_NOT_FOUND)
+        
+        meals = Recipe_User.objects.filter(user=user_id)
+        if not meals.exists():
+            return Response({'error': 'Рецепти не знайдено'}, status=status.HTTP_404_NOT_FOUND)
+            
+        serializer = RecipeUserSerializer(meals, many=True)
+        return Response(serializer.data)
+    
+    except Exception as e:
+        return Response({'error': f'Помилка сервера: {str(e)}'}, status=500)
+
+
+@api_view(['POST'])
+def create_user_meal(request, user_id):
+    try:
+        User.objects.get(id=user_id)
+    except User.DoesNotExist:
+        return Response({'error': 'Користувача не знайдено'}, status=status.HTTP_404_NOT_FOUND)
+
+    request_data = request.data.copy()
+    request_data['user'] = user_id
+    serializer = RecipeUserSerializer(data=request_data)
+    
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def add_ingredients_to_user_meal(request, meal_id,user_id):
+    try:
+        recipe = Recipe_User.objects.get(id=meal_id,user=user_id)
+    except Recipe_User.DoesNotExist:
+        return Response({'error': 'Рецепт не знайдено'}, status=status.HTTP_404_NOT_FOUND)
+
+    ingredients = request.data.get('ingredients')
+
+    if not ingredients or not isinstance(ingredients, list):
+        return Response({'error': 'Необхідно передати список інгредієнтів'}, status=status.HTTP_400_BAD_REQUEST)
+
+    added_ingredients = []
+    errors = []
+
+    for item in ingredients:
+        ingredient_id = item.get('ingredient')
+        quantity = item.get('quantity')
+
+        if not ingredient_id or not quantity:
+            errors.append({'ingredient': ingredient_id, 'error': 'Відсутній ingredient або quantity'})
+            continue
+
+        try:
+            ingredient = Ingredient.objects.get(id=ingredient_id)
+        except Ingredient.DoesNotExist:
+            errors.append({'ingredient': ingredient_id, 'error': 'Інгредієнт не знайдено'})
+            continue
+
+        # Створюємо або оновлюємо зв’язок RecipeIngredient
+        recipe_ingredient, created = RecipeIngredientUser.objects.update_or_create(
+            recipe_user=recipe,
+            ingredient=ingredient,
+            defaults={'quantity': quantity}
+        )
+
+        added_ingredients.append(Recipe_User_IngredientSerializer(recipe_ingredient).data)
+
+    response_data = {"added_ingredients": added_ingredients}
+    if errors:
+        response_data["errors"] = errors
+
+    return Response(response_data, status=status.HTTP_201_CREATED if added_ingredients else status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def get_user_meal_ingredients(request,meal_id,user_id):
+    try:
+        meal_ingredients = RecipeIngredientUser.objects.filter(recipe_user=meal_id)
+        serializer = Recipe_User_IngredientSerializer(meal_ingredients, many=True)
+        
+        return Response(serializer.data)
+    
+    except RecipeIngredientUser.DoesNotExist:
+        return Response({'error': 'Рецепт не знайдено'}, status=status.HTTP_404_NOT_FOUND)    
 
 
 #================================================================
@@ -435,6 +541,8 @@ def change_ingredient_quantity(request, user_id, ingredient_id):
     
     return Response(FridgeSerializer(user_menu_item).data, status=status.HTTP_200_OK)
 
+
+
 @api_view(['GET'])
 def menu_generator(request,user_id):
     try:
@@ -451,7 +559,7 @@ def menu_generator(request,user_id):
     try:
         meals = Recipe.objects.all()
         if not meals.exists():
-            return Response({'error': 'Рецепти не знайдено'}, status=404)
+            return Response({'error': 'Рецепти не знайдено'}, status=status.HTTP_404_NOT_FOUND)
 
     except Exception as e:
         return Response({'error': f'Помилка сервера: {str(e)}'}, status=500)
