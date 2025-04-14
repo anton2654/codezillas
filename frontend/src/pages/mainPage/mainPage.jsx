@@ -5,6 +5,7 @@ import "./mainPage.css";
 import { Search } from "lucide-react";
 import ScrollToTop from "../../components/scrollUp/scrollButt.jsx";
 import DishCard from "../../components/dishCard/DishCard.jsx";
+import SkeletonDishCard from "../../components/dishCard/SkeletonDishCard.jsx";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -31,13 +32,13 @@ const MainPage = () => {
     <div className="section">
       <h2>{title}</h2>
       <div className="product-list">
-        {isLoading ? (
-          <p>Завантаження...</p>
-        ) : (
-          items.slice(0, 5).map((product) => (
-            <DishCard key={product.id} dish={product} />
-          ))
-        )}
+        {isLoading
+          ? [...new Array(5)].map((_, index) => (
+              <SkeletonDishCard key={index} />
+            ))
+          : items
+              .slice(0, 5)
+              .map((product) => <DishCard key={product.id} dish={product} />)}
       </div>
       <button>Більше</button>
     </div>
