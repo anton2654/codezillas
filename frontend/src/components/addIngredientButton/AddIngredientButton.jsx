@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
-import { PlusCircle } from "lucide-react";
+import { PlusCircle, X } from "lucide-react";
 import axios from "axios";
 import "../dishCard/dishCard.css";
 
 const AddIngredientButton = ({ userId }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newDishName, setNewDishName] = useState("");
-  const [newDishWeight, setNewDishWeight] = useState("");
-  const [ingredients, setIngredients] = useState([]);
+  const [ingredientsList, setIngredientsList] = useState([]);
+  const [currentIngredientName, setCurrentIngredientName] = useState("");
+  const [currentIngredientWeight, setCurrentIngredientWeight] = useState("");
+  const [addedIngredients, setAddedIngredients] = useState([]);
 
   useEffect(() => {
     const fetchIngredients = async () => {
@@ -15,8 +16,7 @@ const AddIngredientButton = ({ userId }) => {
         const response = await axios.get(
           "http://127.0.0.1:8000/api/ingredient/all/"
         );
-        setIngredients(response.data);
-        // console.log(response.data)
+        setIngredientsList(response.data);
       } catch (error) {
         console.error("Помилка отримання списку інгредієнтів:", error);
       }
@@ -24,53 +24,62 @@ const AddIngredientButton = ({ userId }) => {
     fetchIngredients();
   }, []);
 
-  const handleAddDish = async () => {
+  const handleAddIngredient = () => {
     if (
-      newDishName.trim() === "" ||
-      isNaN(newDishWeight) ||
-      newDishWeight <= 0
+      !currentIngredientName.trim() ||
+      isNaN(currentIngredientWeight) ||
+      currentIngredientWeight <= 0
     ) {
-      alert("Введіть коректні дані!");
+      alert("Введіть коректні дані для інгредієнта!");
+      return;
+    }
+    const foundIngredient = ingredientsList.find(
+      (item) => item.name.toLowerCase() === currentIngredientName.toLowerCase()
+    );
+    if (!foundIngredient) {
+      alert("Інгредієнт не знайдено!");
       return;
     }
 
+    const newIngredient = {
+      id: foundIngredient.id,
+      name: foundIngredient.name,
+      weight: parseFloat(currentIngredientWeight),
+    };
+
+    setAddedIngredients((prev) => [...prev, newIngredient]);
+    setCurrentIngredientName("");
+    setCurrentIngredientWeight("");
+  };
+
+  const handleDeleteIngredient = (index) => {
+    setAddedIngredients((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleSaveIngredients = async () => {
+    if (addedIngredients.length === 0) {
+      alert("Додайте хоча б один інгредієнт!");
+      return;
+    }
+
+    const payload = {
+      ingredients: addedIngredients.map((item) => ({
+        quantity: item.weight,
+        ingredient: item.id,
+      })),
+    };
+
     try {
-      const ingredientsResponse = await axios.get(
-        "http://127.0.0.1:8000/api/ingredient/all/"
-      );
-      const ingredients = ingredientsResponse.data;
-
-      const foundIngredient = ingredients.find(
-        (item) => item.name.toLowerCase() === newDishName.toLowerCase()
-      );
-      if (!foundIngredient) {
-        alert("Інгредієнт не знайдено!");
-        return;
-      }
-
-      // Формуємо об'єкт у правильному форматі
-      const newDish = {
-        ingredients: [
-          {
-            quantity: parseFloat(newDishWeight),
-            ingredient: foundIngredient.id, // Використовуємо знайдений ID
-          },
-        ],
-      };
-      console.log("Відправляємо об'єкт:", JSON.stringify(newDish, null, 2));
       const response = await axios.post(
         `http://127.0.0.1:8000/api/user/${userId}/fridge/add/`,
-        JSON.stringify(newDish, null, 2),
+        JSON.stringify(payload, null, 2),
         { headers: { "Content-Type": "application/json" } }
       );
-
       console.log("Відповідь від сервера:", response.data);
-
       window.location.reload();
-
     } catch (error) {
       console.error("Помилка при відправці запиту:", error);
-      alert("Не вдалося додати інгредієнт.");
+      alert("Не вдалося додати інгредієнти.");
     }
   };
 
@@ -83,26 +92,48 @@ const AddIngredientButton = ({ userId }) => {
       {isModalOpen && (
         <div className="modal">
           <div className="modal-content-add">
-            <h3>Додати продукт</h3>
-            <input
-              list="ingredients-list"
-              placeholder="Назва продукту"
-              value={newDishName}
-              onChange={(e) => setNewDishName(e.target.value)}
-            />
+            <h3>Додати продукти</h3>
 
-            <datalist id="ingredients-list">
-              {ingredients.map((ingredient) => (
-                <option key={ingredient.id} value={ingredient.name} />
+            <ul className="added-ingredients">
+              {addedIngredients.map((ingredient, index) => (
+                <li key={index} className="ingredient-box">
+                  <span>{ingredient.name}</span> {ingredient.weight} г
+                  <X
+                    className="delete-icon"
+                    size={16}
+                    onClick={() => handleDeleteIngredient(index)}
+                  />
+                </li>
               ))}
-            </datalist>   
+            </ul>
 
-            <input
-              type="number"
-              placeholder="Вага (г)"
-              value={newDishWeight}
-              onChange={(e) => setNewDishWeight(e.target.value)}
-            />
+            <div className="add-ingredients">
+              <input
+                className="ing-input"
+                list="ingredients-list"
+                placeholder="Додайте інгредієнт"
+                value={currentIngredientName}
+                onChange={(e) => setCurrentIngredientName(e.target.value)}
+              />
+              <datalist id="ingredients-list">
+                {ingredientsList.map((ingredient) => (
+                  <option key={ingredient.id} value={ingredient.name} />
+                ))}
+              </datalist>
+
+              <input
+                className="weight-input"
+                placeholder="Маса (г)"
+                type="number"
+                value={currentIngredientWeight}
+                onChange={(e) => setCurrentIngredientWeight(e.target.value)}
+              />
+
+              <button className="add-button" onClick={handleAddIngredient}>
+                Додати
+              </button>
+            </div>
+
             <div className="modal-buttons">
               <button
                 className="cancel-btn"
@@ -110,8 +141,8 @@ const AddIngredientButton = ({ userId }) => {
               >
                 Закрити
               </button>
-              <button className="add-btn" onClick={handleAddDish}>
-                Додати
+              <button className="add-btn" onClick={handleSaveIngredients}>
+                Зберегти
               </button>
             </div>
           </div>

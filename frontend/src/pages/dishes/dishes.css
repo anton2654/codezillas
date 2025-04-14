@@ -127,8 +127,10 @@
 .search-container-1 {
   width: 100%;
   max-width: 400px;
-  padding-bottom: 8px;
+  padding-bottom: 24px;
+  margin: 0 auto;
 }
+
 
 .modal-content-add input {
   height: 40px;
@@ -137,14 +139,14 @@
   padding: 12px 15px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  color: #6E6E6E;
+  color: #6e6e6e;
   font-size: 14px;
   font-family: Inter, sans-serif;
   font-weight: lighter;
 }
 
 .modal-content-add input:focus {
-  border: 1px solid #11B05E;
+  border: 1px solid #11b05e;
   box-shadow: 0 0 2px rgba(103, 201, 108, 0.4);
   outline: none;
 }
@@ -171,9 +173,13 @@
   background: #00a355;
 }
 
+.add-button{
+  margin-top: 10px;
+}
+
 .cancel-btn {
-  background: #EFF0F3;
-  color: #62636C;
+  background: #eff0f3;
+  color: #62636c;
   border: none;
   padding: 10px 16px;
   border-radius: 5px;
@@ -183,5 +189,5 @@
 }
 
 .cancel-btn:hover {
-  background: #E7E8EC;
+  background: #e7e8ec;
 }

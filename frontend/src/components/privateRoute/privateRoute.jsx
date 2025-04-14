@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext.jsx";
 import { useNavigate } from "react-router-dom";
+import Header from "../header/Header.jsx";
 
 const PrivateRoute = ({ children }) => {
     const { user, loading } = useContext(AuthContext);
@@ -13,7 +14,7 @@ const PrivateRoute = ({ children }) => {
     }, [loading, user, nav]);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <Header/>
     }
 
     if (user) {

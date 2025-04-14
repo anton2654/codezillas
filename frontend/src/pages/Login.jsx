@@ -119,12 +119,6 @@ function Login() {
                     )}
                 </div>
 
-                <div className="need-help-link">
-                    <a className="need-help-link" href="/help">
-                        Забули пароль?
-                    </a>
-                </div>
-
                 <button type="submit" className="primary-auth-button">
                     Продовжити
                 </button>

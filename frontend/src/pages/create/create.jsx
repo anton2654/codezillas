@@ -4,7 +4,7 @@ import "./create.css";
 import { ArrowLeft, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import {useNavigate, useNavigation} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const Create = () => {
     const [mealName, setMealName] = useState("");

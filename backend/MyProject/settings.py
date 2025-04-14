@@ -146,9 +146,9 @@ WSGI_APPLICATION = 'MyProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'testDish2',
+        'NAME': 'codezillasdb',
         'USER': 'postgres',
-        'PASSWORD': 'Valentyn26543',
+        'PASSWORD': '11111111',
         'HOST': 'localhost',
         'PORT': '5432',
     }

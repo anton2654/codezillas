@@ -95,17 +95,19 @@ const Dishes = () => {
     <div className="container">
       <Header />
       <div className="dishes-wrapper">
-
-        <div className="search-container-1">
+        {/* <div className="search-container-1">
           <Search />
-        </div>
+        </div> */}
         <div className="dishes-wrapper-top">
+          
           <Categories
             categories={dishesCategories}
             activeCategory={activeCategory}
             onCategoryClick={handleCategoryChange}
           />
-          <button className="add-dish-button" onClick={() => nav('/create')}>
+          <Search />
+
+          <button className="add-dish-button" onClick={() => nav("/create")}>
             <PlusCircle size={20} /> Додати страву
           </button>
         </div>
