@@ -116,122 +116,140 @@ const Create = () => {
     const nav = useNavigate();
 
     return (
-        <div>
-            <Header />
-            <div className="create-page">
-                <div className="create-container">
-                    <div className="create-header">
-                        <div className="create-header-left">
-                            <ArrowLeft className="go-back-icon" onClick={() => nav(-1)}/>
-                            <h2>Додавання рецепту</h2>
-                        </div>
-                        <div className="create-header-right">
-                            <button className="clear-button">Очистити</button>
-                            <button className="publish-button" onClick={handleCreateMeal}>
-                                Опублікувати
-                            </button>
-                        </div>
-                    </div>
-                    <div className="create-form">
-                        <div className="create-info">
-                            <div className="create-image">
-                                <div className="image"></div>
-                                <button>Завантажити з URL-адреси</button>
-                            </div>
-                            <div className="create-input">
-                                <div className="input-group">
-                                    <label htmlFor="photo">Фото (URL)</label>
-                                    <input
-                                        type="text"
-                                        id="photo"
-                                        placeholder="Вставте URL фото"
-                                        value={photoUrl}
-                                        onChange={(e) => setPhotoUrl(e.target.value)}
-                                    />
-                                </div>
-                                <div className="input-group">
-                                    <label htmlFor="name">Назва</label>
-                                    <input
-                                        type="text"
-                                        id="name"
-                                        placeholder="Додайте назву"
-                                        value={mealName}
-                                        onChange={(e) => setMealName(e.target.value)}
-                                    />
-                                </div>
-                                <div className="input-group">
-                                    <label htmlFor="description">Опис</label>
-                                    <textarea
-                                        id="description"
-                                        placeholder="Додайте короткий опис"
-                                        value={mealDescription}
-                                        onChange={(e) => setMealDescription(e.target.value)}
-                                    />
-                                </div>
-                                <div className="input-group">
-                                    <label htmlFor="category">Категорія</label>
-                                    <select
-                                        id="category"
-                                        value={selectedCategory}
-                                        onChange={(e) => setSelectedCategory(e.target.value)}
-                                    >
-                                        <option value="">Оберіть категорію</option>
-                                        {Array.isArray(categories) && categories.length > 0 ? (
-                                            categories.map((category, index) => (
-                                                <option key={index} value={category}>
-                                                    {category}
-                                                </option>
-                                            ))
-                                        ) : (
-                                            <option disabled>Категорії не завантажено</option>
-                                        )}
-                                    </select>
-                                </div>
-                                <div className="input-group-ingredients">
-                                    <label htmlFor="ingredients">Інгредієнти</label>
-                                    <ul className="added-ingredients">
-                                        {addedIngredients.map((ingredient, index) => (
-                                            <li key={index} className="ingredient-box">
-                                                <span>{ingredient.name}</span>{ingredient.weight} г
-                                                <X
-                                                    className="delete-icon"
-                                                    size={16}
-                                                    onClick={() => handleDeleteIngredient(index)}
-                                                />
-                                            </li>
-                                        ))}
-                                    </ul>
-                                    <div className="add-ingredients">
-                                        <input
-                                            className="ing-input"
-                                            list="ingredients-list"
-                                            placeholder="Додайте інгредієнт"
-                                            value={currentIngredientName}
-                                            onChange={(e) => setCurrentIngredientName(e.target.value)}
-                                        />
-                                        <datalist id="ingredients-list">
-                                            {ingredientsList.map((ingredient) => (
-                                                <option key={ingredient.id} value={ingredient.name} />
-                                            ))}
-                                        </datalist>
-                                        <input
-                                            className="weight-input"
-                                            placeholder="Маса (г)"
-                                            value={currentIngredientWeight}
-                                            onChange={(e) => setCurrentIngredientWeight(e.target.value)}
-                                        />
-                                        <button className="add-button" onClick={handleAddIngredient}>
-                                            Додати
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      <div>
+        <Header />
+        <div className="create-page">
+          <div className="create-container">
+            <div className="create-header">
+              <div className="create-header-left">
+                <ArrowLeft className="go-back-icon" onClick={() => nav(-1)} />
+                <h2>Додавання рецепту</h2>
+              </div>
+              <div className="create-header-right">
+                <button className="clear-button">Очистити</button>
+                <button className="publish-button" onClick={handleCreateMeal}>
+                  Опублікувати
+                </button>
+              </div>
             </div>
-            <Footer />
+            <div className="create-form">
+              <div className="create-info">
+                <div className="create-image">
+                  {photoUrl ? (
+                      <div className="image-added">
+                        <img
+                          src={photoUrl}
+                          alt="Meal preview"
+                          className="preview-image"
+                        />
+                      </div>
+                  ) : (
+                    <div className="image"></div>
+                  )}
+                </div>
+
+                <div className="create-input">
+                  <div className="input-group">
+                    <label htmlFor="photo">Фото (URL)</label>
+                    <input
+                      type="text"
+                      id="photo"
+                      placeholder="Вставте URL фото"
+                      value={photoUrl}
+                      onChange={(e) => setPhotoUrl(e.target.value)}
+                    />
+                  </div>
+                  <div className="input-group">
+                    <label htmlFor="name">Назва</label>
+                    <input
+                      type="text"
+                      id="name"
+                      placeholder="Додайте назву"
+                      value={mealName}
+                      onChange={(e) => setMealName(e.target.value)}
+                    />
+                  </div>
+                  <div className="input-group">
+                    <label htmlFor="description">Опис</label>
+                    <textarea
+                      id="description"
+                      placeholder="Додайте короткий опис"
+                      value={mealDescription}
+                      onChange={(e) => setMealDescription(e.target.value)}
+                    />
+                  </div>
+                  <div className="input-group">
+                    <label htmlFor="category">Категорія</label>
+                    <select
+                      id="category"
+                      value={selectedCategory}
+                      onChange={(e) => setSelectedCategory(e.target.value)}
+                    >
+                      <option value="">Оберіть категорію</option>
+                      {Array.isArray(categories) && categories.length > 0 ? (
+                        categories.map((category, index) => (
+                          <option key={index} value={category}>
+                            {category}
+                          </option>
+                        ))
+                      ) : (
+                        <option disabled>Категорії не завантажено</option>
+                      )}
+                    </select>
+                  </div>
+                  <div className="input-group-ingredients">
+                    <label htmlFor="ingredients">Інгредієнти</label>
+                    <ul className="added-ingredients">
+                      {addedIngredients.map((ingredient, index) => (
+                        <li key={index} className="ingredient-box">
+                          <span>{ingredient.name}</span>
+                          {ingredient.weight} г
+                          <X
+                            className="delete-icon"
+                            size={16}
+                            onClick={() => handleDeleteIngredient(index)}
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="add-ingredients">
+                      <input
+                        className="ing-input"
+                        list="ingredients-list"
+                        placeholder="Додайте інгредієнт"
+                        value={currentIngredientName}
+                        onChange={(e) =>
+                          setCurrentIngredientName(e.target.value)
+                        }
+                      />
+                      <datalist id="ingredients-list">
+                        {ingredientsList.map((ingredient) => (
+                          <option key={ingredient.id} value={ingredient.name} />
+                        ))}
+                      </datalist>
+                      <input
+                        className="weight-input"
+                        placeholder="Маса (г)"
+                        value={currentIngredientWeight}
+                        onChange={(e) =>
+                          setCurrentIngredientWeight(e.target.value)
+                        }
+                      />
+                      <button
+                        className="add-button"
+                        onClick={handleAddIngredient}
+                      >
+                        Додати
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+        <Footer />
+      </div>
     );
 };
 
