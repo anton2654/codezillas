@@ -1,0 +1,46 @@
+.section-text h2 {
+    font-family: Inter, sans-serif;
+    font-size: 24px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.section-text p {
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    margin-top: 6px;
+    margin-left: 10px;
+    color: #65636D;
+}
+
+.section-text  {
+    margin-bottom: 10px;
+}
+
+.no-dishes-main {
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    margin-top: 6px;
+    margin-left: 10px;
+    color: #D13415;
+    width: 650px;
+    word-wrap: break-word;
+    line-height: 1;
+    padding-bottom: 6px;
+}
+
+.no-dishes-sec {
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    margin-top: 6px;
+    margin-left: 10px;
+    color: #65636D;
+    width: 600px;
+    word-wrap: break-word;
+    line-height: 1;
+    padding-bottom: 6px;
+}
+
+.generator-error {
+    margin-bottom: 60px;
+}

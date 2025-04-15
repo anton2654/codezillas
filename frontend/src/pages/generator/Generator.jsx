@@ -9,6 +9,8 @@ import Categories from "../../components/categories/Categories.jsx";
 import Pagination from "../../components/pagination/Pagination.jsx";
 import { AuthContext } from "../../context/AuthContext.jsx";
 
+import "./generator.css";
+
 const Generator = () => {
   //   const [dishesCategories, setDishCategory] = useState([]);
   const [activeCategory, setActiveCategory] = useState("Все");
@@ -87,44 +89,54 @@ const Generator = () => {
   ));
 
   return (
-    <div className="container">
-      <Header />
-      <div className="dishes-wrapper">
-        {/* <Categories
-          categories={dishesCategories}
-          activeCategory={activeCategory}
-          onCategoryClick={handleCategoryChange}
-        /> */}
-        <h2>Доступні страви</h2>
-
-        <div className="product-list">
-          {isLoading
-            ? skeletons
-            : availableMeals.map((product) => (
-                <DishCard key={product.id} dish={product} />
-              ))}
-        </div>
-
-        <h2>Ingredient available meals</h2>
-
-        <div className="product-list">
-          {isLoading
-            ? skeletons
-            : ingredientAvailableMeals.map((product) => (
-                <DishCard key={product.id} dish={product} />
-              ))}
-        </div>
-        {filteredDishes.length > itemsPerPage && (
-          <div className="button-container">
-            <Pagination
-              onChangePage={(number) => setCurrentPage(number)}
-              pageCount={Math.ceil(filteredDishes.length / itemsPerPage)}
-            />
+      <div className="container">
+        <Header />
+        <div className="dishes-wrapper">
+          <div className="section-text">
+            <h2>Доступні страви</h2>
+            <p>Страви, які Ви можете приготувати вже зараз!</p>
           </div>
-        )}
+          <div className="product-list">
+            {isLoading ? (
+                skeletons
+            ) : availableMeals.length > 0 ? (
+                availableMeals.map((product) => (
+                    <DishCard key={product.id} dish={product} />
+                ))
+            ) : (
+                <div className="generator-error">
+                  <p className="no-dishes-main">На жаль, зараз немає доступних страв для приготування з наявними продуктами!</p>
+                  <p className="no-dishes-main">Переконайтесь, що ви наповнили Холодильник!</p>
+                </div>
+            )}
+          </div>
+
+          <div className="section-text">
+            <h2>Майже доступні страви</h2>
+            <p>Ви б <strong>могли</strong> приготувати ці страви, якби мали достатньо інгредієнтів!</p>
+          </div>
+          <div className="product-list">
+            {isLoading ? (
+                skeletons
+            ) : ingredientAvailableMeals.length > 0 ? (
+                ingredientAvailableMeals.map((product) => (
+                    <DishCard key={product.id} dish={product} />
+                ))
+            ) : (
+                <p className="no-dishes-sec">На жаль, немає страв, які можна приготувати!</p>
+            )}
+          </div>
+          {filteredDishes.length > itemsPerPage && (
+              <div className="button-container">
+                <Pagination
+                    onChangePage={(number) => setCurrentPage(number)}
+                    pageCount={Math.ceil(filteredDishes.length / itemsPerPage)}
+                />
+              </div>
+          )}
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
   );
 };
 
