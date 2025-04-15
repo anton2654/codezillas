@@ -58,12 +58,9 @@ const DishCard = ({ dish }) => {
     }
   }, []);
 
-  useEffect(() => {
-    console.log("isModalOpen changed:", isModalOpen);
-  }, [isModalOpen]);
 
 
-  // const [dishId, setDishId] = useState(0);
+
 
   return (
     <div className="product-card" onClick={openModal}>

@@ -78,6 +78,24 @@
     background: #00A355;
 }
 
+.add-button-products {
+    background: #11B05E;
+    font-size: 14px;
+    height: 40px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0 16px;
+    margin-left: auto;
+    display: block;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+}
+
+.add-button-products:hover {
+    background: #00A355;
+}
+
 .clear-button {
     background: #E7E8EC;
     color: #62636C;
@@ -146,8 +164,6 @@
     height: 300px;
 }
 
-.create-input {
-}
 
 .input-group {
     display: flex;

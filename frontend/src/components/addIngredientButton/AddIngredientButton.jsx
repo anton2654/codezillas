@@ -129,7 +129,10 @@ const AddIngredientButton = ({ userId }) => {
                 onChange={(e) => setCurrentIngredientWeight(e.target.value)}
               />
 
-              <button className="add-button" onClick={handleAddIngredient}>
+              <button
+                className="add-button-products"
+                onClick={handleAddIngredient}
+              >
                 Додати
               </button>
             </div>

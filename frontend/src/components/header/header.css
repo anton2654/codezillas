@@ -19,7 +19,8 @@
 .header-nav {
   display: flex;
   flex: 1.25;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  gap: 60px;
   width: 100%;
 }
 
