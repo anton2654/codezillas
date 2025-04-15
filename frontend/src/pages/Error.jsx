@@ -5,7 +5,7 @@ const Error = () => {
   return (
     <>
       <Header />
-      <h2>404: Page Not Found</h2>
+      <h2>Will be done soon</h2>
     </>
   );
 };

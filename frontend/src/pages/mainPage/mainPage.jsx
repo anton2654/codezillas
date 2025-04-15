@@ -32,7 +32,6 @@ const MainPage = () => {
   const youMayLikeIt = [items[24], items[11], items[4], items[15], items[16]];
   const redactionChoise = [items[7], items[6], items[23], items[22], items[25]];
 
-  
   const renderSection = (title, items) => (
     <div className="section">
       <h2>{title}</h2>
@@ -45,7 +44,9 @@ const MainPage = () => {
               .slice(0, 5)
               .map((product) => <DishCard key={product.id} dish={product} />)}
       </div>
-      <button>Більше</button>
+      <Link to="/dishes">
+        <button>Більше</button>
+      </Link>
     </div>
   );
 
