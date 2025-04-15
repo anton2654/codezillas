@@ -11,8 +11,9 @@ import Categories from "../../components/categories/Categories.jsx";
 import Pagination from "../../components/pagination/Pagination.jsx";
 import Search from "../../components/search/Search.jsx";
 import { SearchContext } from "../../App";
-import {PlusCircle} from "lucide-react";
-import {useNavigate} from "react-router-dom";
+import { PlusCircle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import ScrollToTop from "../../components/scrollUp/scrollButt.jsx";
 
 const Dishes = () => {
   const { searchValue } = useContext(SearchContext);
@@ -99,7 +100,7 @@ const Dishes = () => {
           <Search />
         </div> */}
         <div className="dishes-wrapper-top">
-          
+
           <Categories
             categories={dishesCategories}
             activeCategory={activeCategory}
@@ -116,8 +117,8 @@ const Dishes = () => {
           {isLoading
             ? skeletons
             : displayedDishes.map((product) => (
-                <DishCard key={product.id} dish={product} />
-              ))}
+              <DishCard key={product.id} dish={product} />
+            ))}
         </div>
         {filteredDishes.length > itemsPerPage && (
           <div className="button-container">
@@ -129,6 +130,7 @@ const Dishes = () => {
         )}
       </div>
       <Footer />
+      <ScrollToTop />
     </div>
   );
 };

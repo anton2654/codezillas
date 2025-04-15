@@ -9,6 +9,7 @@ import ProductCard from "../../components/productCard/ProductCard.jsx";
 import Pagination from "../../components/pagination/Pagination.jsx";
 import { AuthContext } from "../../context/AuthContext.jsx";
 import AddIngredientButton from "../../components/addIngredientButton/AddIngredientButton.jsx";
+import ScrollToTop from "../../components/scrollUp/scrollButt.jsx";
 
 import "../dishes/dishes.css";
 
@@ -100,17 +101,17 @@ const Fridge = () => {
         <div className="product-list">
           {isLoading
             ? [...new Array(8)].map((_, index) => (
-                <SkeletonDishCard key={index} />
-              ))
+              <SkeletonDishCard key={index} />
+            ))
             : displayedProducts.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  weight={weights[items.indexOf(product)]}
-                  userId={user?.id}
-                  onRemove={handleRemoveProduct}
-                />
-              ))}
+              <ProductCard
+                key={product.id}
+                product={product}
+                weight={weights[items.indexOf(product)]}
+                userId={user?.id}
+                onRemove={handleRemoveProduct}
+              />
+            ))}
         </div>
 
         {filteredProducts.length > itemsPerPage && (
@@ -124,6 +125,7 @@ const Fridge = () => {
       </div>
 
       <Footer />
+      <ScrollToTop />
     </div>
   );
 };
