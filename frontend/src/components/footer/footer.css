@@ -54,80 +54,10 @@ footer .logo1 {
     cursor: pointer;
 }
 
-footer button {
-    background-color: #E7F7E8;
-    color: #000;
-    border: 2px solid black;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-family: Arial, sans-serif;
-    cursor: pointer;
-    width: 168px;
-    height: 43px;
-    margin-top: 40px;
-    margin-right: 24px;
-}
-
-.filter-and-add-buttons{
-    margin: 46px;
-}
-
-.menu-bar {
-    display: flex;
-    gap: 10px;
-    background: white;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-.menu-bar button {
-    border: none;
-    background: #e0e0e0;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-.menu-bar button:hover, .menu-bar button.active {
-    background: #a0d468;
-    color: white;
-}
-.right-buttons {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    display: flex;
-    gap: 10px;
-}
-.right-buttons button {
-    background: none;
-    border: none;
-    padding: 10px;
-    border-radius: 50%;
-    cursor: pointer;
-    color: white;
-    font-size: 18px;
-}
-.right-buttons button:hover {
-    background: #e68900;
-}
-
 .footer-logo-img {
     width: 164px;
     height: 46px;
     margin-top: -8px;
-}
-
-.footer-support-button {
-    background: none;
-    border-radius: 5px;
-    color: white;
-    border-color: white;
-}
-
-.footer-support-button:hover {
-    background: #515151;
 }
 
 .about-container {
@@ -139,4 +69,22 @@ footer button {
 
 .about-container p {
     margin-bottom: 10px;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-top: 10px;
+    margin-right: 24px;
+}
+
+.footer-socials a {
+    color: white;
+    transition: color 0.3s;
+    font-size: 24px;
+}
+
+.footer-socials a:hover {
+    color: #a5a5a5;
 }

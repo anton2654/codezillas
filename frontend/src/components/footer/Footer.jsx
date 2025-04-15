@@ -1,13 +1,17 @@
 import React from 'react';
-import './footer.css'
-import { Link } from 'react-router-dom'
+import './footer.css';
+import { Link } from 'react-router-dom';
+import { Instagram, Facebook, Twitter, Send } from 'lucide-react';
 
 const Footer = () => {
     return (
         <footer>
             <div className="logo1">
-                <img src="/white-logo.png" alt="Smart Meal Logo" className='footer-logo-img'/>
+                <Link to="/">
+                    <img src="/white-logo.png" alt="Smart Meal Logo" className="footer-logo-img" />
+                </Link>
             </div>
+
             <div className="about-container">
                 <p>© 2025 Codezillas Corp. Всі права захищено.</p>
                 <p>м. Львів, вул. Кульпарківська, 95.</p>
@@ -16,16 +20,16 @@ const Footer = () => {
 
             <div className="text1">
                 <span className="main_text">Меню</span>
-                <Link to="/dishes" style={{textDecoration: 'none'}}>
+                <Link to="/dishes" style={{ textDecoration: 'none' }}>
                     <p>Страви</p>
                 </Link>
-                <Link to="/drinks" style={{textDecoration: 'none'}}>
+                <Link to="/drinks" style={{ textDecoration: 'none' }}>
                     <p>Напої</p>
                 </Link>
-                <Link to="/generator" style={{textDecoration: 'none'}}>
+                <Link to="/generator" style={{ textDecoration: 'none' }}>
                     <p>Генератор</p>
                 </Link>
-                <Link to="/fridge" style={{textDecoration: 'none'}}>
+                <Link to="/fridge" style={{ textDecoration: 'none' }}>
                     <p>Холодильник</p>
                 </Link>
             </div>
@@ -42,8 +46,23 @@ const Footer = () => {
                 <p>Приватні консультації</p>
             </div>
 
-
-            <button className="footer-support-button">Підтримати</button>
+            <div className="text1">
+                <span className="main_text">Соціальні мережі</span>
+                <div className="footer-socials">
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                        <Instagram />
+                    </a>
+                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                        <Facebook />
+                    </a>
+                    <a href="https://t.me" target="_blank" rel="noopener noreferrer">
+                        <Send />
+                    </a>
+                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                        <Twitter />
+                    </a>
+                </div>
+            </div>
 
         </footer>
     );
